@@ -17,7 +17,7 @@ const definePluginParameters = {
     // eslint-disable-next-line id-match
     // BUILD_DATE: JSON.stringify(date.getTime()),
     // eslint-disable-next-line id-match
-    BUILD_DATE_H: JSON.stringify(date.toString()),
+    BUILD_DATE_H: JSON.stringify(date.toISOString()),
     // NODE_ENV: JSON.stringify(NODE_ENV),
     // IS_PRODUCTION: JSON.stringify(isProduction),
     // PROJECT_ID: JSON.stringify('my-best-project')

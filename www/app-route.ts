@@ -13,5 +13,4 @@ export const appRoute = {
     forgotPassword: {
         path: '/auth/forgot-password',
     },
-
 };
