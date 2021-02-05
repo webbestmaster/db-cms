@@ -1,0 +1,43 @@
+{
+    "compilerOptions": {
+        "outDir": "./tsc-check/",
+
+        "target": "es6",
+        "jsx": "react",
+        "module": "es6",
+        "moduleResolution": "node",
+
+        "noImplicitAny": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "strictPropertyInitialization": true,
+        "strictBindCallApply": true,
+        "noImplicitThis": true,
+        "noImplicitReturns": true,
+        "useDefineForClassFields": false,
+        "alwaysStrict": true,
+        "allowUnreachableCode": true,
+        "allowUnusedLabels": false,
+        "downlevelIteration": false,
+        "noEmitHelpers": false,
+        "noEmit": false,
+        "noLib": false,
+        "noStrictGenericChecks": false,
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "esModuleInterop": true,
+        "preserveConstEnums": false,
+        "removeComments": false,
+        "skipLibCheck": true,
+        "checkJs": false,
+        "allowJs": true,
+        "declaration": false,
+        "experimentalDecorators": false,
+        "emitDecoratorMetadata": false,
+    },
+    "exclude": [
+        "./dist",
+        "./tsc-check/",
+        "node_modules",
+    ]
+}

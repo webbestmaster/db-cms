@@ -1,0 +1,9 @@
+/* stylelint-disable selector-pseudo-class-no-unknown */
+
+//@import './reset';
+@import './var';
+@import './service';
+
+body {
+    overflow-y: scroll;
+}
