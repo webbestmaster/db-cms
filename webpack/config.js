@@ -9,7 +9,7 @@ const availableModeList = [modeDevelopmentName, modeProductionName];
 const {NODE_ENV} = process.env;
 
 const nodeEnvironmentName = availableModeList.includes(NODE_ENV) ? NODE_ENV : modeDevelopmentName;
-console.log('webpack mode:', nodeEnvironmentName);
+console.log('[INFO] webpack mode:', nodeEnvironmentName);
 
 const pathToStaticFileFolder = '/static/'; // '/static';
 
