@@ -13,6 +13,9 @@ package-lock.json
 # dist
 /dist/
 
+# scss helper
+/**/*.scss.d.ts
+
 # report
 /coverage-ts/
 /tsc-check/
