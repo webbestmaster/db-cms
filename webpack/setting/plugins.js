@@ -27,7 +27,7 @@ const definePluginParameters = {
 const staticFilesSiteList = [
     {
         from: './www/favicon.ico',
-        to: filePathPrefix + 'favicon.ico',
+        to: filePathPrefix + '../favicon.ico',
     },
 ];
 
