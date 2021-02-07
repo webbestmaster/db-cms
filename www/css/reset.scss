@@ -1,5 +1,4 @@
-/*
-!* stylelint-disable property-no-unknown, selector-list-comma-newline-after, selector-no-qualifying-type, no-descending-specificity *!
+/* stylelint-disable property-no-unknown, selector-list-comma-newline-after, selector-no-qualifying-type, no-descending-specificity */
 
 @import './var';
 
@@ -90,7 +89,7 @@ time,
 video,
 select {
     //background-color: transparent;
-    border: 0;
+    //border: 0;
     //font-size: 14px;
     -webkit-font-smoothing: antialiased;
     -moz-font-smoothing: antialiased;
@@ -205,7 +204,7 @@ a img {
 
 a {
     //color: $link-color;
-    //text-decoration: underline;
+    text-decoration: underline;
 
     &:focus {
         //outline: 1px solid;
@@ -216,11 +215,10 @@ a {
     }
 
     &:hover {
-        //text-decoration: none;
+        text-decoration: none;
     }
 
     &:active {
         //color: $link-color-active;
     }
 }
-*/

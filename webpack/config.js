@@ -5,13 +5,18 @@
 const modeDevelopmentName = 'development';
 const modeProductionName = 'production';
 
-const nodeEnvironment = process.env.NODE_ENV || modeDevelopmentName;
+const availableModeList = [modeDevelopmentName, modeProductionName];
+const {NODE_ENV} = process.env;
+
+const nodeEnvironmentName = availableModeList.includes(NODE_ENV) ? NODE_ENV : modeDevelopmentName;
+console.log('webpack mode:', nodeEnvironmentName);
+
 const pathToStaticFileFolder = '/static/'; // '/static';
 
-module.exports.nodeEnvironment = nodeEnvironment;
+module.exports.nodeEnvironment = nodeEnvironmentName;
 
-module.exports.isDevelopment = nodeEnvironment === modeDevelopmentName;
-module.exports.isProduction = nodeEnvironment === modeProductionName;
+module.exports.isDevelopment = nodeEnvironmentName === modeDevelopmentName;
+module.exports.isProduction = nodeEnvironmentName === modeProductionName;
 
 module.exports.cwd = process.cwd();
 
