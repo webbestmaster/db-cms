@@ -1,7 +1,8 @@
-import {dataBaseCms} from '../src/data-base-cms';
+import {runDBCmsServer, DatabaseCmsServerConfigType} from '../src/data-base-cms';
 
-console.log(dataBaseCms);
+const databaseCmsServerConfigType: DatabaseCmsServerConfigType = {
+    port: 3000,
+    hostname: 'localhost',
+};
 
-console.log('1');
-
-const dataBase = 'db-cms';
+runDBCmsServer(databaseCmsServerConfigType);
