@@ -1,7 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const {isProduction, isDevelopment, fileRegExp} = require('./../../config');
-const {lessVariableMap} = require('../../antd-config');
 
 const styleLoader = {
     loader: 'style-loader',
@@ -39,31 +38,6 @@ module.exports.rules = [
                 loader: 'file-loader',
                 options: {
                     name: '[name]-[md5:hash:hex:7].[ext]',
-                },
-            },
-        ],
-    },
-    {
-        test: /\.less$/i,
-        use: [
-            cssLoader,
-            {
-                loader: 'css-loader',
-                options: {
-                    sourceMap: isDevelopment,
-                    modules: {
-                        localIdentName: '[local]', // '[local]----[path]--[name]--[hash:6]'
-                    },
-                },
-            },
-            {
-                loader: 'less-loader',
-                options: {
-                    lessOptions: {
-                        // If you are using less-loader@5 please spread the lessOptions to options directly
-                        modifyVars: lessVariableMap,
-                        javascriptEnabled: true,
-                    },
                 },
             },
         ],
