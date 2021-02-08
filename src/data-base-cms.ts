@@ -1,22 +1,32 @@
-import {createServer, IncomingMessage, ServerResponse, Server} from 'http';
+/* global process */
+
+import path from 'path';
+
+import express, {Request, Response} from 'express';
+
+import {pathToDist} from '../webpack/config';
+
+import {addApiIntoApplication} from './api/api';
 
 export type DatabaseCmsServerConfigType = {
     port: number; // 3000
-    hostname: string; // '127.0.0.1'
-    // callback?: () => void;
 };
 
-export function runDBCmsServer(databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
-    const {hostname, port} = databaseCmsServerConfig;
+const CWD = process.cwd();
 
-    const server: Server = createServer((request: IncomingMessage, response: ServerResponse): void => {
-        // eslint-disable-next-line no-param-reassign
-        response.statusCode = 200;
-        response.setHeader('Content-Type', 'text/plain');
-        response.end('Hello World');
+export function runDBCmsServer(databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
+    const app = express();
+
+    const {port} = databaseCmsServerConfig;
+
+    addApiIntoApplication(app);
+
+    // *.html
+    app.get('*', async (request: Request, response: Response) => {
+        response.sendFile(path.join(CWD, pathToDist, '/../index.html'));
     });
 
-    server.listen(port, hostname, (): void => {
-        console.log(`DbCmsServer running at http://${hostname}:${port}/`);
+    app.listen(port, (): void => {
+        console.log(`DbCmsServer running at port: ${port}`);
     });
 }
