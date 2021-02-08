@@ -1,5 +1,10 @@
 import React from 'react';
+import {Login} from "../page/login/c-login";
 
 export function App(): JSX.Element {
-    return <h1>db cms</h1>;
+    return (
+        <div>
+            <Login/>
+        </div>
+    );
 }
