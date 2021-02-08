@@ -7,10 +7,7 @@ import express, {Request, Response} from 'express';
 import {pathToDist} from '../webpack/config';
 
 import {addApiIntoApplication} from './api/api';
-
-export type DatabaseCmsServerConfigType = {
-    port: number; // 3000
-};
+import {DatabaseCmsServerConfigType} from './data-base-cms-type';
 
 const CWD = process.cwd();
 

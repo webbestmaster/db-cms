@@ -37,6 +37,7 @@
   "homepage": "https://github.com/webbestmaster/db-cms#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "jsonschema": "^1.4.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
