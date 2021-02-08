@@ -20,6 +20,7 @@ const webpackConfig = {
         filename: isDevelopment ? '[name].js' : 'index.js',
         chunkFilename: isDevelopment ? '[name].chunk.js' : '[name].[hash:6].chunk.js',
     },
+    // target: 'node',
 
     mode: nodeEnvironment,
     devtool: isProduction ? false : 'source-map',
