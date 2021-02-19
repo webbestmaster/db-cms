@@ -15,6 +15,8 @@ type PropsType = {
 
 export function UserProvider(props: PropsType): JSX.Element {
     const {children} = props;
+
+    /*
     const [isInGettingUser, setIsInGettingUser] = useState<boolean>(false);
     const [gettingUserError, setGettingUserError] = useState<Error | null>(null);
     const [user, serUser] = useState<UserType | null>(null);
@@ -54,6 +56,7 @@ export function UserProvider(props: PropsType): JSX.Element {
             gettingUserError,
         };
     }, [memoizedGettingUser, user, isInGettingUser, gettingUserError]);
+*/
 
-    return <UserContext.Provider value={providerData}>{children}</UserContext.Provider>;
+    return <UserContext.Provider value={defaultUserContextData}>{children}</UserContext.Provider>;
 }

@@ -1,1 +1,1 @@
-export const rootApiUrl: string = '/db-cms-front/api/';
+export const rootApiUrl = '/db-cms-front/api/';

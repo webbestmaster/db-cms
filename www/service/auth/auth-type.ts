@@ -1,7 +1,14 @@
 /* eslint-disable camelcase, id-match */
 
-export type AuthorizationDataType = {
+export type LoginDataType = {
+    login: string;
+    password: string;
+};
+
+export type LoginResultType = {
     login: string;
 };
 
-export type LogoutResultType = unknown;
+export type LogoutResultType = {
+    login: string;
+};

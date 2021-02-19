@@ -7,15 +7,19 @@ export function Login(): JSX.Element {
         <div className={loginStyle.login}>
             <form>
                 <label>
-                    <input type="text" placeholder="Login"/>
+                    <input placeholder="Login" type="text"/>
                 </label>
+
                 <br/>
+
                 <label>
-                    <input type="password" placeholder="Password"/>
+                    <input placeholder="Password" type="password"/>
                 </label>
+
                 <br/>
+
                 <input type="submit" value="submit"/>
             </form>
         </div>
-    )
+    );
 }
