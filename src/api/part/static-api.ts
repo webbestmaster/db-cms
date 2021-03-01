@@ -1,4 +1,5 @@
-/* global process */
+/*
+/!* global process *!/
 
 import path from 'path';
 
@@ -14,3 +15,4 @@ export function addStaticApi(app: Application): void {
         response.sendFile(path.join(CWD, pathToDist, request.params['0']));
     });
 }
+*/

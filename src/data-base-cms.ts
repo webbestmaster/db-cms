@@ -18,10 +18,12 @@ export function runDBCmsServer(databaseCmsServerConfig: DatabaseCmsServerConfigT
 
     addApiIntoApplication(app);
 
+    /*
     // *.html
     app.get('*', async (request: Request, response: Response) => {
         response.sendFile(path.join(CWD, pathToDist, '/../index.html'));
     });
+*/
 
     app.listen(port, (): void => {
         console.log(`DbCmsServer running at port: ${port}`);

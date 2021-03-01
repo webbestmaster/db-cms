@@ -28,3 +28,10 @@ export const mongoUserRoleMap = {
     user: 'user',
     admin: 'admin',
 };
+
+export const apiRouteMap = {
+    auth: {
+        login: '/api/login',
+        logout: '/api/logout',
+    },
+};

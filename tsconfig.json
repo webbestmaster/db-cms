@@ -26,7 +26,7 @@
         "noUnusedLocals": false,
         "noUnusedParameters": false,
         "esModuleInterop": true,
-        "preserveConstEnums": false,
+        "preserveConstEnums": true,
         "removeComments": false,
         "skipLibCheck": true,
         "checkJs": false,

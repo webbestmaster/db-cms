@@ -21,7 +21,7 @@ const promiseCache = {};
 export function fetchX<ExpectedResponseType>(url: string, options?: OptionsType): Promise<ExpectedResponseType> {
     const cacheProperty = url + ' - ' + (JSON.stringify(options) || '');
 
-    const savedPromise = promiseCache[cacheProperty];
+    // const savedPromise = promiseCache[cacheProperty];
 
     /*
     if (savedPromise) {
@@ -35,18 +35,19 @@ export function fetchX<ExpectedResponseType>(url: string, options?: OptionsType)
         ...options || {},
     };
 
-    promiseCache[cacheProperty] = fetch(url, definedOptions)
-        .then(
-            (result: Response): Promise<ExpectedResponseType> => {
-                if (result.ok) {
-                    return result.json();
-                }
-
-                promiseCache[cacheProperty] = null;
-
-                throw new Error(JSON.stringify(result));
+    promiseCache[cacheProperty] = fetch(url, definedOptions).then(
+        (result: Response): Promise<ExpectedResponseType> => {
+            if (result.ok) {
+                return result.json();
             }
-        )
+
+            // promiseCache[cacheProperty] = null;
+
+            throw new Error(JSON.stringify(result));
+        }
+    );
+
+    /*
         .catch(
             (error: Error): Error => {
                 promiseCache[cacheProperty] = null;
@@ -54,6 +55,7 @@ export function fetchX<ExpectedResponseType>(url: string, options?: OptionsType)
                 throw error;
             }
         );
+*/
 
     return promiseCache[cacheProperty];
 }
