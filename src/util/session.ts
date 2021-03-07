@@ -44,7 +44,10 @@ export function getSessionData(request: Request): SessionDataType | null {
         }
 
         return null;
-    } catch {
+    } catch (error) {
+        console.log('[DbCmsServer] getSessionData error');
+        console.error(error);
+
         return null;
     }
 }
