@@ -2,7 +2,7 @@ import {Application, Request, Response} from 'express';
 
 import {apiRouteMap, serverConst} from '../../data-base-const';
 import {AdminType, AuthResponseType, DatabaseCmsServerConfigType} from '../../data-base-cms-type';
-import {getSessionData, setSessionCookie} from '../../util/session';
+import {getSessionData, removeSessionCookie, setSessionCookie} from '../../util/session';
 
 export function addSessionApi(app: Application, databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
     app.post(apiRouteMap.auth.login, async (request: Request, response: Response) => {
@@ -31,6 +31,17 @@ export function addSessionApi(app: Application, databaseCmsServerConfig: Databas
 
         const successResult: AuthResponseType = {
             user: {login: admin.login},
+            isSuccess: true,
+        };
+
+        response.json(successResult);
+    });
+
+    app.get(apiRouteMap.auth.logout, async (request: Request, response: Response) => {
+        removeSessionCookie(response);
+
+        const successResult: AuthResponseType = {
+            user: null,
             isSuccess: true,
         };
 

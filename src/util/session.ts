@@ -11,7 +11,7 @@ export type SessionDataType = {
     login: string;
 };
 
-export function setSessionCookie(response: Response, admin: AdminType): SessionDataType {
+export function setSessionCookie(response: Response, admin: AdminType): void {
     const sessionData: SessionDataType = {
         date: Date.now(),
         id: getRandomString(),
@@ -22,8 +22,10 @@ export function setSessionCookie(response: Response, admin: AdminType): SessionD
         httpOnly: true,
         secure: true,
     });
+}
 
-    return sessionData;
+export function removeSessionCookie(response: Response): void {
+    response.cookie(serverConst.session.cookieKey, '', {httpOnly: true, secure: true});
 }
 
 // eslint-disable-next-line complexity
