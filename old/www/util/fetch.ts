@@ -32,7 +32,7 @@ export function fetchX<ExpectedResponseType>(url: string, options?: OptionsType)
 
     const definedOptions: OptionsType = {
         credentials: 'include',
-        ...options || {},
+        ...(options || {}),
     };
 
     promiseCache[cacheProperty] = fetch(url, definedOptions).then(
@@ -44,7 +44,7 @@ export function fetchX<ExpectedResponseType>(url: string, options?: OptionsType)
             // promiseCache[cacheProperty] = null;
 
             throw new Error(JSON.stringify(result));
-        }
+        },
     );
 
     /*

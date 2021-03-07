@@ -4,17 +4,16 @@ import path from 'path';
 
 import {Application, Request, Response} from 'express';
 
-// import {pathToDist, pathToStaticFileFolder} from '../../../webpack/config';
-// import {appRoute} from '../../../www/app-route';
+import {pathToDist, pathToStaticFileFolder} from '../../../webpack/config';
+import {appRoute} from '../../../www/app-route';
 import {apiRouteMap} from '../../data-base-const';
-import {AuthResponseType} from '../../data-base-cms-type';
 
-// const CWD = process.cwd();
+const CWD = process.cwd();
 
-// export type UserSessionType = {
-//     login: string;
-//     destroy: (callBack?: unknown) => unknown;
-// };
+export type UserSessionType = {
+    login: string;
+    destroy: (callBack?: unknown) => unknown;
+};
 
 /*
 
@@ -47,8 +46,6 @@ export function addSessionApi(app: Application): void {
 
         response.cookie('cookieName', 'cookieValue', {httpOnly: true, secure: true});
 
-        const result: AuthResponseType = {isSuccess: true};
-
-        response.json(result);
+        response.json({isSuccessful: true, errorList: []});
     });
 }

@@ -9,7 +9,7 @@ import {App} from './component/app/c-app';
 const nodeWrapper = document.querySelector(selector.appWrapper);
 
 if (nodeWrapper !== null) {
-    render(<App/>, nodeWrapper);
+    render(<App />, nodeWrapper);
 } else {
     console.error('Can not find nodeWrapper');
 }

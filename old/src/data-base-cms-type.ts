@@ -17,7 +17,3 @@ export type DatabaseCmsServerConfigType = {
     modelList: Array<ModelConfigType>;
     adminList: Array<AdminType>;
 };
-
-export type AuthResponseType = {
-    isSuccess: boolean;
-};

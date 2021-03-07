@@ -9,6 +9,7 @@ const availableModeList = [modeDevelopmentName, modeProductionName];
 const {NODE_ENV} = process.env;
 
 const nodeEnvironmentName = availableModeList.includes(NODE_ENV) ? NODE_ENV : modeDevelopmentName;
+
 console.log('[INFO] webpack mode:', nodeEnvironmentName);
 
 const pathToStaticFileFolder = '/db-cms-front/static/'; // '/static';

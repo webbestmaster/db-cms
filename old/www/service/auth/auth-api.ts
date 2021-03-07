@@ -15,7 +15,7 @@ export function login(authorizationData: LoginDataType): Promise<LoginResultType
             }
 
             throw new Error('[ERROR]: Can not login.');
-        }
+        },
     );
 }
 
@@ -27,6 +27,6 @@ export function logout(): Promise<LogoutResultType | Error> {
             }
 
             throw new Error('[ERROR]: Can not logout.');
-        }
+        },
     );
 }
