@@ -4,7 +4,12 @@ import {DatabaseCmsServerConfigType} from '../src/data-base-cms-type';
 const databaseCmsServerConfigType: DatabaseCmsServerConfigType = {
     port: 3000,
     modelList: [],
-    adminList: [],
+    adminList: [
+        {
+            login: 'admin',
+            password: 'some-password',
+        },
+    ],
 };
 
 runDBCmsServer(databaseCmsServerConfigType);

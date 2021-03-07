@@ -11,6 +11,10 @@ export type AdminType = {
     password: string;
 };
 
+export type LoginDataType = {
+    login: string;
+};
+
 export type DatabaseCmsServerConfigType = {
     port: number; // 3000
     // dbName: string;
@@ -20,4 +24,7 @@ export type DatabaseCmsServerConfigType = {
 
 export type AuthResponseType = {
     isSuccess: boolean;
+    user: LoginDataType | null;
 };
+
+export type KeyValueType = {[key: string]: string | void};

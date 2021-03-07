@@ -1,5 +1,7 @@
 // @flow
 
+import crypto from 'crypto';
+
 const mainDataBaseName = 'main-db';
 
 export const databaseDumpFolderName = 'db-dump';
@@ -21,6 +23,13 @@ export const dataBaseConst = {
     collection: {
         // user: 'user',
         document: 'document',
+    },
+};
+
+export const serverConst = {
+    secretKey: crypto.randomBytes(16).toString('hex'), // 32 symbols
+    session: {
+        cookieKey: 'session-id',
     },
 };
 

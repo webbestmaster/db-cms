@@ -8,9 +8,9 @@ export function runDBCmsServer(databaseCmsServerConfig: DatabaseCmsServerConfigT
 
     const {port} = databaseCmsServerConfig;
 
-    addApiIntoApplication(app);
+    addApiIntoApplication(app, databaseCmsServerConfig);
 
     app.listen(port, (): void => {
-        console.log(`DbCmsServer running at port: ${port}`);
+        console.log(`[DbCmsServer] running at port: ${port}`);
     });
 }

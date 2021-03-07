@@ -1,27 +1,50 @@
-function getHashFree(value: string): string {
-    let result = 0;
-    const stringLength = value.length;
+/* global Buffer */
+import crypto from 'crypto';
 
-    // eslint-disable-next-line no-loops/no-loops
-    for (let index = 0; index < stringLength; index += 1) {
-        result = Math.trunc(Math.imul(31, result) + value.charCodeAt(index));
-    }
+const algorithm = 'aes-256-ctr';
+const randomBytes = crypto.randomBytes(16);
 
-    return result.toString(32);
+import {serverConst} from '../data-base-const';
+import {KeyValueType} from '../data-base-cms-type';
+
+export function getRandomString(): string {
+    return crypto.randomBytes(16).toString('hex');
 }
 
-export const getHash = ((): ((value: string) => string) => {
-    const hashCache: {[key: string]: string | void} = {};
+export function getHash(value: string): string {
+    const sha256PasswordHmac = crypto.createHmac('sha256', serverConst.secretKey);
 
-    return function getHashMemoized(value: string): string {
-        const cachedResult = hashCache[value];
+    return sha256PasswordHmac.update(value).digest('hex');
+}
 
-        if (cachedResult) {
-            console.log('getHash', cachedResult, value);
-            return cachedResult;
-        }
+export function encrypt(text: string): string {
+    const cipher = crypto.createCipheriv(algorithm, serverConst.secretKey, randomBytes);
 
-        // eslint-disable-next-line no-return-assign
-        return hashCache[value] = getHashFree(value);
-    };
-})();
+    return Buffer.concat([cipher.update(text), cipher.final()]).toString('hex');
+}
+
+export function decrypt(hash: string): string {
+    const decipher = crypto.createDecipheriv(
+        algorithm,
+        serverConst.secretKey,
+        Buffer.from(randomBytes.toString('hex'), 'hex')
+    );
+
+    return Buffer.concat([decipher.update(Buffer.from(hash, 'hex')), decipher.final()]).toString();
+}
+
+export function parseCookie(value: string): KeyValueType {
+    const result: KeyValueType = {};
+
+    value
+        .split(',')
+        .map((keyValue: string): string => keyValue.trim())
+        .filter(Boolean)
+        .forEach((keyValue: string) => {
+            const [cookieKey = '', cookieValue = ''] = keyValue.split('=');
+
+            result[cookieKey.trim()] = cookieValue.trim();
+        });
+
+    return result;
+}
