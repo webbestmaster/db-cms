@@ -3,7 +3,7 @@ import {Application, Request, Response} from 'express';
 import {AdminType} from '../data-base-cms-type';
 import {serverConst} from '../data-base-const';
 
-import {decrypt, encrypt, getRandomString, parseCookie} from './string';
+import {decrypt, encrypt, getRandomString, parseQueryString} from './string';
 
 export type SessionDataType = {
     date: number;
@@ -30,7 +30,7 @@ export function removeSessionCookie(response: Response): void {
 
 // eslint-disable-next-line complexity
 export function getSessionData(request: Request): SessionDataType | null {
-    const parsedCookie = parseCookie(String(request.headers.cookie || ''));
+    const parsedCookie = parseQueryString(String(request.headers.cookie || ''));
 
     const sessionCookie = parsedCookie[serverConst.session.cookieKey] || '';
 
