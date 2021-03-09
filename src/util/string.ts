@@ -1,4 +1,5 @@
 /* global Buffer */
+
 import crypto from 'crypto';
 
 const algorithm = 'aes-256-ctr';
@@ -33,7 +34,7 @@ export function decrypt(hash: string): string {
     return Buffer.concat([decipher.update(Buffer.from(hash, 'hex')), decipher.final()]).toString();
 }
 
-export function parseQueryString(value: string): KeyValueType {
+export function parseCookie(value: string): KeyValueType {
     const result: KeyValueType = {};
 
     value
