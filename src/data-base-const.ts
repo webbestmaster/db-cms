@@ -44,5 +44,6 @@ export const apiRouteMap = {
     auth: {
         login: '/api/login',
         logout: '/api/logout',
+        logoutAll: '/api/logout-all',
     },
 };

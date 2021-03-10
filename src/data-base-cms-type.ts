@@ -9,6 +9,7 @@ export type ModelConfigType = {
 export type AdminType = {
     login: string;
     password: string;
+    hash: string; // secret hash to check valid/invalid session, and to drop all sessions
 };
 
 export type LoginDataType = {

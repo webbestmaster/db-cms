@@ -2,6 +2,7 @@ import express, {Request, Response} from 'express';
 
 import {addApiIntoApplication} from './api/api';
 import {DatabaseCmsServerConfigType} from './data-base-cms-type';
+import {log} from './util/log';
 
 export function runDBCmsServer(databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
     const app = express();
@@ -11,6 +12,6 @@ export function runDBCmsServer(databaseCmsServerConfig: DatabaseCmsServerConfigT
     addApiIntoApplication(app, databaseCmsServerConfig);
 
     app.listen(port, (): void => {
-        console.log(`[DbCmsServer] running at port: ${port}`);
+        log(`running at port: ${port}`);
     });
 }

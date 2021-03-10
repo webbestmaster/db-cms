@@ -1,14 +1,16 @@
 import {Application, Request, Response} from 'express';
 
-import {AdminType} from '../data-base-cms-type';
+import {AdminType, DatabaseCmsServerConfigType} from '../data-base-cms-type';
 import {serverConst} from '../data-base-const';
 
 import {decrypt, encrypt, getRandomString, parseCookie} from './string';
+import {log, logError} from './log';
 
 export type SessionDataType = {
     date: number;
     id: string;
     login: string;
+    hash: string;
 };
 
 export function setSessionCookie(response: Response, admin: AdminType): void {
@@ -16,6 +18,7 @@ export function setSessionCookie(response: Response, admin: AdminType): void {
         date: Date.now(),
         id: getRandomString(),
         login: admin.login,
+        hash: admin.hash,
     };
 
     response.cookie(serverConst.session.cookieKey, encrypt(JSON.stringify(sessionData)), {
@@ -37,17 +40,30 @@ export function getSessionData(request: Request): SessionDataType | null {
     try {
         const sessionData = JSON.parse(decrypt(sessionCookie));
 
-        const {date, id, login} = sessionData;
+        const {date, id, login, hash} = sessionData;
 
-        if (typeof date === 'number' && typeof id === 'string' && typeof login === 'string') {
-            return {date, id, login};
+        if (
+            typeof date === 'number'
+            && typeof id === 'string'
+            && typeof login === 'string'
+            && typeof hash === 'string'
+        ) {
+            return {date, id, login, hash};
         }
-
-        return null;
-    } catch (error) {
-        console.log('[DbCmsServer] getSessionData error');
-        console.error(error);
-
-        return null;
+    } catch {
+        logError('getSessionData can not parse session');
     }
+
+    return null;
+}
+
+export function isLogIn(databaseCmsServerConfig: DatabaseCmsServerConfigType, sessionData: SessionDataType): boolean {
+    const {login, hash} = sessionData;
+
+    const admin: AdminType | null
+        = databaseCmsServerConfig.adminList.find((definedAdmin: AdminType): boolean => {
+            return definedAdmin.login === login && definedAdmin.hash === hash;
+        }) || null;
+
+    return Boolean(admin);
 }
