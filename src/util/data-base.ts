@@ -1,68 +1,49 @@
-import {MongoClient} from 'mongodb';
+import {MongoClient, Db, Collection, MongoError} from 'mongodb';
 
 import {DatabaseCmsServerConfigType} from '../data-base-cms-type';
 import {dataBaseConst} from '../data-base-const';
 
 import {log} from './log';
 
-const getDataBaseCache: {[key: string]: Promise<MongoClient>} = {};
+const getDataBaseCache: {[key: string]: Promise<Db>} = {};
 
-export function getDataBase(name: string): Promise<MongoClient> {
-    if (getDataBaseCache[name]) {
+export function getCollection<ItemType>(dataBaseName: string, collectionName: string): Promise<Collection<ItemType>> {
+    return getDataBase(dataBaseName).then(
+        (dataBase: Db): Collection<ItemType> => dataBase.collection<ItemType>(collectionName)
+    );
+}
+
+export function getDataBase(name: string): Promise<Db> {
+    const cachedDatabase: Promise<Db> = getDataBaseCache[name];
+
+    if (cachedDatabase) {
         log('getDataBase: MongoDataBase get from cache, name:', name);
-        return getDataBaseCache[name];
+        return cachedDatabase;
     }
 
     const newMongoClientPromise = MongoClient.connect(dataBaseConst.url, {
         useUnifiedTopology: true,
         useNewUrlParser: true,
-    });
+    }).then((client: MongoClient): Db => client.db(name));
 
     getDataBaseCache[name] = newMongoClientPromise;
 
     return newMongoClientPromise;
 }
 
-/*
-export function getDataBase(name: string): Promise<MongoDataBase> {
-    if (name in getDataBaseCache) {
-        log('getDataBase: MongoDataBase get from cache, name:', name);
-        return getDataBaseCache[name];
-    }
-
-    getDataBaseCache[name] = new Promise<MongoDataBase>(
-        (resolve: MongoDataBase => mixed, reject: (error: Error) => mixed) => {
-        MongoClient.connect(
-            dataBaseConst.url,
-            {
-                useUnifiedTopology: true,
-                useNewUrlParser: true,
-            },
-            (clientError: ?Error, client: ?MongoClient) => {
-            if (clientError) {
-                // console.error('Can not connect to mongo server');
-                reject(new Error('Can not connect to mongo server'));
-                return;
-            }
-
-            if (!client) {
-                // console.error('Mongo client is not define');
-                reject(new Error('Mongo client is not define'));
-                return;
-            }
-
-            resolve(client.db(name));
-        }
-    );
-    }
-);
-
-    return getDataBaseCache[name];
-}
-*/
-
 export function prepareDataBase(databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
     log('prepareDataBase', databaseCmsServerConfig);
 
-    // 1 check for exists and create needed documents
+    getCollection<{[key: string]: unknown}>(dataBaseConst.mainDataBaseName, 'user-model');
+
+    /*
+        .then((collection: Collection<{[key: string]: unknown}>) => {
+            console.log(collection);
+
+            return collection.findOne({name: 's'});
+        })
+        .catch(error => {
+            console.log(error);
+        });
+*/
 }

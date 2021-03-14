@@ -50,8 +50,9 @@ $ ~/soft/mongo/bin/mongorestore db/backup/001 --port=27001 --db=main-db
 2.5. Some commands in mongodb console/client (~/soft/mongo/bin/mongo):
 ```bash
 $ ~/soft/mongo/bin/mongo --port=27001 --host=127.0.0.1 // run client
+$ show dbs // show all data bases name
 $ show databases // show all data bases name
-$ use <data base name> // switched to db <data base name>
+$ use <data base name> // switched (and create) to db <data base name>
 $ show collections // show all collection in current db
 $ db.getCollectionNames() // the same: show collections
 $ db.<collection name>.find() // show all documents of collection
@@ -79,9 +80,9 @@ Implicit session: session { "id" : UUID("11c98e9f-aff2-41f8-80cf-a7c0f06b40a4") 
 MongoDB server version: 4.2.0
 ```
 
-```
-rs.status()
-rs.initiate({"_id" : "MyBestReplica", members : [{"_id" : 0, priority : 3, host : "127.0.0.1:27001"}, {"_id" : 1, host : "127.0.0.1:27002", arbiterOnly : true}, {"_id" : 2, host : "127.0.0.1:27003"}, {"_id" : 3, host : "127.0.0.1:27004"} ]});
+```bash
+rs.status();
+rs.initiate({"_id" : "dbCmsReplica", members : [{"_id" : 0, priority : 3, host : "127.0.0.1:27001"}, {"_id" : 1, host : "127.0.0.1:27002", arbiterOnly : true}, {"_id" : 2, host : "127.0.0.1:27003"}, {"_id" : 3, host : "127.0.0.1:27004"} ]});
 ```
 
 ### DB search

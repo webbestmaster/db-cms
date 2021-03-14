@@ -10,7 +10,7 @@
     "start-web": "cross-env NODE_ENV=development webpack-cli serve --progress",
     "start-web:hot": "cross-env NODE_ENV=development webpack-cli serve --progress --hot",
     "build-web": "cross-env NODE_ENV=production webpack --progress",
-    "start-server": "cross-env NODE_ENV=production babel-node -x .ts ./example/example.ts",
+    "start-server": "cross-env NODE_ENV=production babel-node -x .ts ./example/example.ts --trace-warnings",
     "check": "npm run eslint && npm run stylelint && npm run tsc",
     "check:all": "npm run prettier; npm run eslint:fix; npm run stylelint:fix; npm run tsc",
     "check:fix": "npm run prettier && npm run eslint:fix && npm run stylelint:fix && npm run tsc",
