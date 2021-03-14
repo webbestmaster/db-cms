@@ -19,11 +19,11 @@ export const dataBaseConst = {
     shallCommand: {
         backup: backUpCommand,
     },
-    name: mainDataBaseName,
-    collection: {
-        // user: 'user',
-        document: 'document',
-    },
+    mainDataBaseName,
+    // collection: {
+    // user: 'user',
+    // document: 'document',
+    // },
 };
 
 export const serverConst = {
