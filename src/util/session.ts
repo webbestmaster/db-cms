@@ -57,13 +57,19 @@ export function getSessionData(request: Request): SessionDataType | null {
     return null;
 }
 
-export function isLogIn(databaseCmsServerConfig: DatabaseCmsServerConfigType, sessionData: SessionDataType): boolean {
+export function getAdminBySession(
+    databaseCmsServerConfig: DatabaseCmsServerConfigType,
+    sessionData: SessionDataType | null
+): AdminType | null {
+    if (!sessionData) {
+        return null;
+    }
+
     const {login, hash} = sessionData;
 
-    const admin: AdminType | null
-        = databaseCmsServerConfig.adminList.find((definedAdmin: AdminType): boolean => {
+    return (
+        databaseCmsServerConfig.adminList.find((definedAdmin: AdminType): boolean => {
             return definedAdmin.login === login && definedAdmin.hash === hash;
-        }) || null;
-
-    return Boolean(admin);
+        }) || null
+    );
 }
