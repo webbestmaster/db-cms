@@ -19,3 +19,6 @@ package-lock.json
 # report
 /coverage-ts/
 /tsc-check/
+
+# db
+/db/
