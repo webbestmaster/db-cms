@@ -16,8 +16,11 @@
 
 <h1>nginx works</h1>
 
+
+<button id="create">create</button>
+
 <script>
-    fetch('/api/login', {
+    fetch('/api/auth/login', {
         method: 'post',
         credentials: 'include',
         headers: {'Content-Type': 'application/json'},
@@ -25,6 +28,23 @@
     })
         .then(data => data.json())
         .then(result => console.log('login result:', result));
+</script>
+
+<script>
+
+    document
+        .querySelector('#create')
+        .addEventListener('click', () => {
+            fetch('/api/crud/create/user-model', {
+                method: 'post',
+                credentials: 'include',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({login: 'admin', password: 'some-password'})
+            })
+                .then(data => data.json())
+                .then(result => console.log('create result:', result));
+        }, false);
+
 </script>
 
 </body>

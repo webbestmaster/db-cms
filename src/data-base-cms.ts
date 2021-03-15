@@ -6,7 +6,7 @@ import {log} from './util/log';
 import {prepareDataBase} from './util/data-base';
 
 export function runDBCmsServer(databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
-    prepareDataBase(databaseCmsServerConfig);
+    // prepareDataBase(databaseCmsServerConfig, );
 
     const app = express();
 

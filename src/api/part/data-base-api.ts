@@ -1,72 +1,69 @@
+import {MongoClient, Db, Collection, MongoError} from 'mongodb';
 import {Application, Request, Response} from 'express';
+import {Validator} from 'jsonschema';
 
-import {apiRouteMap, serverConst} from '../../data-base-const';
-import {AdminType, AuthResponseType, DatabaseCmsServerConfigType} from '../../data-base-cms-type';
+import {apiRouteMap, dataBaseConst, serverConst} from '../../data-base-const';
+import {
+    AdminType,
+    AuthResponseType,
+    CrudResponseType,
+    DatabaseCmsServerConfigType,
+    DocumentType,
+    ModelConfigType,
+} from '../../data-base-cms-type';
 import {getAdminBySession, getSessionData, removeSessionCookie, setSessionCookie} from '../../util/session';
 import {log} from '../../util/log';
-import {getRandomString} from '../../util/string';
+import {getMapFromObject} from '../../util/object';
+import {findInArray} from '../../util/array';
+import {getCollection} from '../../util/data-base';
+import {getIsValid} from '../../util/schema';
+
+const validator = new Validator();
 
 export function addDataBaseApi(app: Application, databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
-    app.post(apiRouteMap.auth.login, (request: Request, response: Response) => {
+    app.post(apiRouteMap.crud.create, (request: Request, response: Response) => {
         const sessionData = getSessionData(request);
 
         log('[DbCmsServer] sessionData:', sessionData);
 
+        const errorResult: CrudResponseType = {
+            data: null,
+            isSuccess: false,
+        };
+
         const admin = getAdminBySession(databaseCmsServerConfig, sessionData);
 
         if (!admin) {
-            const errorResult: AuthResponseType = {
-                user: null,
-                isSuccess: false,
-            };
-
             response.json(errorResult);
             return;
         }
 
-        setSessionCookie(response, admin);
+        const {modelId} = getMapFromObject<{modelId: string}>(request.params || {}, {modelId: ''});
 
-        const successResult: AuthResponseType = {
-            user: {login: admin.login},
-            isSuccess: true,
-        };
+        const modelConfig = findInArray<ModelConfigType>(databaseCmsServerConfig.modelList, {id: modelId});
 
-        response.json(successResult);
-    });
-
-    app.get(apiRouteMap.auth.logout, (request: Request, response: Response) => {
-        removeSessionCookie(response);
-
-        const successResult: AuthResponseType = {
-            user: null,
-            isSuccess: true,
-        };
-
-        response.json(successResult);
-    });
-
-    app.get(apiRouteMap.auth.logoutAll, (request: Request, response: Response) => {
-        const sessionData = getSessionData(request);
-
-        const errorLogoutResult: AuthResponseType = {
-            user: null,
-            isSuccess: false,
-        };
-
-        const successLogoutResult: AuthResponseType = {
-            user: null,
-            isSuccess: true,
-        };
-
-        const admin = getAdminBySession(databaseCmsServerConfig, sessionData);
-
-        if (!admin) {
-            response.json(errorLogoutResult);
+        if (!modelConfig) {
+            response.json(errorResult);
             return;
         }
 
-        admin.hash = getRandomString();
+        const data = request.body;
+        const {schema} = modelConfig;
 
-        response.json(successLogoutResult);
+        if (!getIsValid(data, schema)) {
+            response.json(errorResult);
+            return;
+        }
+
+        getCollection<DocumentType>(dataBaseConst.mainDataBaseName, modelId)
+            .then((collection: Collection<DocumentType>) => collection.insert({...data}))
+            .then(() => {
+                const successResult: CrudResponseType = {isSuccess: true, data};
+
+                response.json(successResult);
+            })
+            .catch(() => {
+                response.json(errorResult);
+            });
     });
 }

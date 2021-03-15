@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 import {DatabaseCmsServerConfigType} from '../data-base-cms-type';
 
 import {addSessionApi} from './part/session-api';
+import {addDataBaseApi} from './part/data-base-api';
 
 export function addApiIntoApplication(app: Application, databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
     app.set('trust proxy', 1); // trust first proxy
@@ -17,4 +18,5 @@ export function addApiIntoApplication(app: Application, databaseCmsServerConfig:
     app.disable('x-powered-by');
 
     addSessionApi(app, databaseCmsServerConfig);
+    addDataBaseApi(app, databaseCmsServerConfig);
 }

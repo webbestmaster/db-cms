@@ -28,4 +28,13 @@ export type AuthResponseType = {
     user: LoginDataType | null;
 };
 
+export type DocumentType = {
+    [key: string]: string | number | Array<string> | Array<number>;
+};
+
+export type CrudResponseType = {
+    isSuccess: boolean;
+    data: DocumentType | null;
+};
+
 export type KeyValueType = {[key: string]: string | void};

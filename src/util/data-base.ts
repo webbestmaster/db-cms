@@ -31,10 +31,12 @@ export function getDataBase(name: string): Promise<Db> {
     return newMongoClientPromise;
 }
 
-export function prepareDataBase(databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
+export function prepareDataBase(databaseCmsServerConfig: DatabaseCmsServerConfigType, collectionName: string): void {
     log('prepareDataBase', databaseCmsServerConfig);
 
-    getCollection<{[key: string]: unknown}>(dataBaseConst.mainDataBaseName, 'user-model');
+    getCollection<{[key: string]: unknown}>(dataBaseConst.mainDataBaseName, collectionName)
+        .then(console.log)
+        .catch(console.log);
 
     /*
         .then((collection: Collection<{[key: string]: unknown}>) => {

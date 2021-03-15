@@ -42,8 +42,14 @@ export const mongoUserRoleMap = {
 
 export const apiRouteMap = {
     auth: {
-        login: '/api/login',
-        logout: '/api/logout',
-        logoutAll: '/api/logout-all',
+        login: '/api/auth/login',
+        logout: '/api/auth/logout',
+        logoutAll: '/api/auth/logout-all',
+    },
+    crud: {
+        create: '/api/crud/create/:modelId',
+        read: '/api/crud/read/:modelId',
+        update: '/api/crud/update/:modelId',
+        'delete': '/api/crud/delete/:modelId',
     },
 };
