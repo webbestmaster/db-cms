@@ -2,43 +2,12 @@
 
 import crypto from 'crypto';
 
-const mainDataBaseName = 'main-db';
-
-export const databaseDumpFolderName = 'db-dump';
-
-const backUpCommand: string = [
-    `mkdir -p ${databaseDumpFolderName};`,
-    'mongodump',
-    '--port=27001',
-    `--archive=${databaseDumpFolderName}/db-dump-\`date +%Y-%m-%d--%H-%M-%S\`.zip`,
-    `--db=${mainDataBaseName}`,
-].join(' ');
-
-export const dataBaseConst = {
-    url: 'mongodb://localhost:27001,localhost:27002,localhost:27003,localhost:27004?replicaSet=dbCmsReplica',
-    shallCommand: {
-        backup: backUpCommand,
-    },
-    mainDataBaseName,
-    // collection: {
-    // user: 'user',
-    // document: 'document',
-    // },
-};
-
 export const serverConst = {
     secretKey: crypto.randomBytes(16).toString('hex'), // 32 symbols
     session: {
         cookieKey: 'session-id',
     },
 };
-
-/*
-export const mongoUserRoleMap = {
-    user: 'user',
-    admin: 'admin',
-};
-*/
 
 export const apiRouteMap = {
     auth: {
@@ -50,6 +19,6 @@ export const apiRouteMap = {
         create: '/api/crud/create/:modelId',
         read: '/api/crud/read/:modelId',
         update: '/api/crud/update/:modelId',
-        'delete': '/api/crud/delete/:modelId',
+        remove: '/api/crud/delete/:modelId',
     },
 };

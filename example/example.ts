@@ -4,6 +4,18 @@ import {runDBCmsServer} from '../src/data-base-cms';
 import {DatabaseCmsServerConfigType, ModelConfigType} from '../src/data-base-cms-type';
 import {getRandomString} from '../src/util/string';
 
+const mainDataBaseName = 'main-db';
+
+export const databaseDumpFolderName = 'db-dump';
+
+const backUpCommand: string = [
+    `mkdir -p ${databaseDumpFolderName};`,
+    'mongodump',
+    '--port=27001',
+    `--archive=${databaseDumpFolderName}/db-dump-\`date +%Y-%m-%d--%H-%M-%S\`.zip`,
+    `--db=${mainDataBaseName}`,
+].join(' ');
+
 const userModel: ModelConfigType = {
     name: 'User',
     id: 'user-model',
@@ -42,6 +54,13 @@ const databaseCmsServerConfigType: DatabaseCmsServerConfigType = {
             hash: getRandomString(),
         },
     ],
+    database: {
+        name: mainDataBaseName,
+        connectUrl: 'mongodb://localhost:27001,localhost:27002,localhost:27003,localhost:27004?replicaSet=dbCmsReplica',
+        shallCommand: {
+            backup: backUpCommand,
+        },
+    },
 };
 
 runDBCmsServer(databaseCmsServerConfigType);
