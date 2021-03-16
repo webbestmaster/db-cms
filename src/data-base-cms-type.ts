@@ -4,6 +4,7 @@ export type ModelConfigType = {
     name: string; // user or document or some instance - displayed name
     id: string; // unique schema id
     schema: Schema;
+    keyId: string; // key in schema.properties, key value is unique
 };
 
 export type AdminType = {
