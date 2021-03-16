@@ -26,24 +26,17 @@ export function defineRequestData(
         return null;
     }
 
-    const {modelId, instanceId} = getMapFromObject<UrlParametersType>(request.params || {}, defaultUrlParameters);
+    const urlParameters = getMapFromObject<UrlParametersType>(request.params || {}, defaultUrlParameters);
 
-    log('[defineRequestData] modelId, instanceId:', modelId, instanceId);
-
-    const modelConfig = findInArray<ModelConfigType>(databaseCmsServerConfig.modelList, {id: modelId});
+    const modelConfig = findInArray<ModelConfigType>(databaseCmsServerConfig.modelList, {id: urlParameters.modelId});
 
     if (!modelConfig) {
         return null;
     }
 
-    log('[defineRequestData] modelConfig:', modelId, instanceId);
-
     return {
         modelConfig,
-        urlParameters: {
-            modelId,
-            instanceId,
-        },
+        urlParameters,
         urlQueryParameters: null,
         data: request.body,
     };

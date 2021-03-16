@@ -19,6 +19,7 @@
 
 <button id="create">create</button>
 <button id="read">read</button>
+<button id="read-list">read list</button>
 
 <script>
     fetch('/api/auth/login', {
@@ -60,6 +61,22 @@
             })
                 .then(data => data.json())
                 .then(result => console.log('read result:', result));
+        }, false);
+
+</script>
+
+<script>
+
+    document
+        .querySelector('#read-list')
+        .addEventListener('click', () => {
+            fetch('/api/crud/read-list/user-model/1/4', {
+                method: 'get',
+                credentials: 'include',
+                headers: {'Content-Type': 'application/json'}
+            })
+                .then(data => data.json())
+                .then(result => console.log('read-list result:', result));
         }, false);
 
 </script>

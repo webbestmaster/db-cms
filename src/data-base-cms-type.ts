@@ -36,12 +36,15 @@ export type AuthResponseType = {
 };
 
 export type DocumentType = {
-    [key: string]: string | number | Array<string> | Array<number>;
+    [key: string]: string | number | boolean | Array<string> | Array<number> | Array<boolean>;
 };
 
 export type CrudResponseType = {
     isSuccess: boolean;
-    data: DocumentType | null;
+    data: DocumentType | Array<DocumentType> | null;
+    size: number;
 };
 
 export type KeyValueType = {[key: string]: string | void};
+
+export type SortDirectionType = -1 | 1;

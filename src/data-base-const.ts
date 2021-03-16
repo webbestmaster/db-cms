@@ -11,15 +11,15 @@ export const serverConst = {
 
 export const apiRouteMap = {
     auth: {
-        login: '/api/auth/login',
-        logout: '/api/auth/logout',
-        logoutAll: '/api/auth/logout-all',
+        login: '/api/auth/login', // done - post
+        logout: '/api/auth/logout', // done - get
+        logoutAll: '/api/auth/logout-all', // done - get
     },
     crud: {
-        create: '/api/crud/create/:modelId',
-        read: '/api/crud/read/:modelId/:instanceId',
-        readList: '/api/crud/read-list/:modelId', // TODO: add search query here
-        update: '/api/crud/update/:modelId/:instanceId',
-        annihilate: '/api/crud/delete/:modelId/:instanceId',
+        create: '/api/crud/create/:modelId', // done - post
+        read: '/api/crud/read/:modelId/:instanceId', // done - get
+        readList: '/api/crud/read-list/:modelId/:pageIndex/:pageSize', // in progress - get // TODO: add search/filter query and sort
+        update: '/api/crud/update/:modelId/:instanceId', // not started - post
+        annihilate: '/api/crud/delete/:modelId/:instanceId', // not started - delete
     },
 };
