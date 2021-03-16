@@ -39,7 +39,7 @@
                 method: 'post',
                 credentials: 'include',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({login: 'admin', password: 'some-password'})
+                body: JSON.stringify({userId: String(Date.now()), login: 'admin', password: String(Math.random())})
             })
                 .then(data => data.json())
                 .then(result => console.log('create result:', result));

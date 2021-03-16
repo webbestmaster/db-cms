@@ -10,42 +10,23 @@ import {findInArray} from '../../util/array';
 import {getCollection} from '../../util/data-base';
 import {getIsValid} from '../../util/schema';
 
+import {defineRequestData} from './data-base-api-helper';
+import {dataBaseErrorResult} from './data-base-api-const';
+
 export function addDataBaseApi(app: Application, databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
     app.post(apiRouteMap.crud.create, (request: Request, response: Response) => {
-        const sessionData = getSessionData(request);
+        const requestData = defineRequestData(databaseCmsServerConfig, request);
 
-        log('[DbCmsServer] sessionData:', sessionData);
-
-        const errorResult: CrudResponseType = {
-            data: null,
-            isSuccess: false,
-        };
-
-        const admin = getAdminBySession(databaseCmsServerConfig, sessionData);
-
-        if (!admin) {
-            response.json(errorResult);
+        if (!requestData) {
+            response.json(dataBaseErrorResult);
             return;
         }
 
-        const {modelId} = getMapFromObject<{modelId: string}>(request.params || {}, {modelId: ''});
-
-        const modelConfig = findInArray<ModelConfigType>(databaseCmsServerConfig.modelList, {id: modelId});
-
-        if (!modelConfig) {
-            response.json(errorResult);
-            return;
-        }
-
-        const data = request.body;
-        const {schema} = modelConfig;
-
-        if (!getIsValid(data, schema)) {
-            response.json(errorResult);
-            return;
-        }
+        const {urlParameters, data} = requestData;
+        const {instanceId, modelId} = urlParameters;
 
         getCollection<DocumentType>(databaseCmsServerConfig, modelId)
+            // @ts-ignore
             .then((collection: Collection<DocumentType>) => collection.insert({...data}))
             .then(() => {
                 const successResult: CrudResponseType = {isSuccess: true, data};
@@ -53,7 +34,31 @@ export function addDataBaseApi(app: Application, databaseCmsServerConfig: Databa
                 response.json(successResult);
             })
             .catch(() => {
-                response.json(errorResult);
+                response.json(dataBaseErrorResult);
+            });
+    });
+
+    app.post(apiRouteMap.crud.read, (request: Request, response: Response) => {
+        const requestData = defineRequestData(databaseCmsServerConfig, request);
+
+        if (!requestData) {
+            response.json(dataBaseErrorResult);
+            return;
+        }
+
+        const {urlParameters, data} = requestData;
+        const {instanceId, modelId} = urlParameters;
+
+        getCollection<DocumentType>(databaseCmsServerConfig, modelId)
+            // @ts-ignore
+            .then((collection: Collection<DocumentType>) => collection.insert({...data}))
+            .then(() => {
+                const successResult: CrudResponseType = {isSuccess: true, data};
+
+                response.json(successResult);
+            })
+            .catch(() => {
+                response.json(dataBaseErrorResult);
             });
     });
 }
