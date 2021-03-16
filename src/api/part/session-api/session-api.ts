@@ -1,11 +1,11 @@
 import {Application, Request, Response} from 'express';
 
-import {apiRouteMap, serverConst} from '../../data-base-const';
-import {AdminType, AuthResponseType, CrudResponseType, DatabaseCmsServerConfigType} from '../../data-base-cms-type';
-import {getAdminBySession, getSessionData, removeSessionCookie, setSessionCookie} from '../../util/session';
-import {log} from '../../util/log';
-import {getRandomString} from '../../util/string';
-import {findInArray} from '../../util/array';
+import {apiRouteMap} from '../../../data-base-const';
+import {AdminType, AuthResponseType, DatabaseCmsServerConfigType} from '../../../data-base-cms-type';
+import {getRandomString} from '../../../util/string';
+import {findInArray} from '../../../util/array';
+
+import {getAdminBySession, getSessionData, removeSessionCookie, setSessionCookie} from './session-api-helper';
 
 export function addSessionApi(app: Application, databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
     app.post(apiRouteMap.auth.login, (request: Request, response: Response) => {

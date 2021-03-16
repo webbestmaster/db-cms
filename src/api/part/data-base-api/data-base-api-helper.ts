@@ -1,12 +1,11 @@
-import {MongoClient, Db, Collection, MongoError} from 'mongodb';
-import {Application, Request, Response} from 'express';
+import {Request} from 'express';
 
-import {getAdminBySession, getSessionData} from '../../util/session';
-import {log} from '../../util/log';
-import {CrudResponseType, DatabaseCmsServerConfigType, ModelConfigType} from '../../data-base-cms-type';
-import {getMapFromObject} from '../../util/object';
-import {findInArray} from '../../util/array';
-import {getIsValid} from '../../util/schema';
+import {getAdminBySession, getSessionData} from '../session-api/session-api-helper';
+import {log} from '../../../util/log';
+import {DatabaseCmsServerConfigType, ModelConfigType} from '../../../data-base-cms-type';
+import {getMapFromObject} from '../../../util/object';
+import {findInArray} from '../../../util/array';
+import {getIsValid} from '../../../util/schema';
 
 import {DefinedRequestDataType, UrlParametersType} from './data-base-api-type';
 import {defaultUrlParameters} from './data-base-api-const';

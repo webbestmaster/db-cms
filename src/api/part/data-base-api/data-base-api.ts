@@ -1,14 +1,9 @@
 import {MongoClient, Db, Collection, MongoError} from 'mongodb';
 import {Application, Request, Response} from 'express';
 
-import {apiRouteMap, serverConst} from '../../data-base-const';
-import {CrudResponseType, DatabaseCmsServerConfigType, DocumentType, ModelConfigType} from '../../data-base-cms-type';
-import {getAdminBySession, getSessionData, removeSessionCookie, setSessionCookie} from '../../util/session';
-import {log} from '../../util/log';
-import {getMapFromObject} from '../../util/object';
-import {findInArray} from '../../util/array';
-import {getCollection} from '../../util/data-base';
-import {getIsValid} from '../../util/schema';
+import {apiRouteMap} from '../../../data-base-const';
+import {CrudResponseType, DatabaseCmsServerConfigType, DocumentType} from '../../../data-base-cms-type';
+import {getCollection} from '../../../util/data-base';
 
 import {defineRequestData} from './data-base-api-helper';
 import {dataBaseErrorResult} from './data-base-api-const';

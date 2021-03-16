@@ -1,4 +1,4 @@
-import {CrudResponseType} from '../../data-base-cms-type';
+import {CrudResponseType} from '../../../data-base-cms-type';
 
 import {UrlParametersType} from './data-base-api-type';
 

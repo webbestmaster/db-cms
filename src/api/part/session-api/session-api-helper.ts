@@ -1,10 +1,9 @@
-import {Application, Request, Response} from 'express';
+import {Request, Response} from 'express';
 
-import {AdminType, DatabaseCmsServerConfigType} from '../data-base-cms-type';
-import {serverConst} from '../data-base-const';
-
-import {decrypt, encrypt, getRandomString, parseCookie} from './string';
-import {log, logError} from './log';
+import {AdminType, DatabaseCmsServerConfigType} from '../../../data-base-cms-type';
+import {serverConst} from '../../../data-base-const';
+import {decrypt, encrypt, getRandomString, parseCookie} from '../../../util/string';
+import {logError} from '../../../util/log';
 
 export type SessionDataType = {
     date: number;

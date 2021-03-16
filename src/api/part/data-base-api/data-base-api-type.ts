@@ -1,4 +1,4 @@
-import {DocumentType, ModelConfigType} from '../../data-base-cms-type';
+import {DocumentType, ModelConfigType} from '../../../data-base-cms-type';
 
 export type UrlParametersType = {
     modelId: string;
