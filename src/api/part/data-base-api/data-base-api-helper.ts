@@ -45,6 +45,7 @@ export function defineRequestData(
             modelId,
             instanceId,
         },
+        urlQueryParameters: null,
         data,
     };
 }

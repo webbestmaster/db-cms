@@ -5,8 +5,11 @@ export type UrlParametersType = {
     instanceId: string;
 };
 
+export type UrlQueryParametersType = unknown;
+
 export type DefinedRequestDataType = {
     modelConfig: ModelConfigType;
     urlParameters: UrlParametersType;
+    urlQueryParameters: UrlQueryParametersType;
     data: DocumentType;
 };

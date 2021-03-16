@@ -18,11 +18,13 @@ export function addDataBaseApi(app: Application, databaseCmsServerConfig: Databa
         }
 
         const {urlParameters, data} = requestData;
-        const {instanceId, modelId} = urlParameters;
+        const {modelId} = urlParameters;
 
         getCollection<DocumentType>(databaseCmsServerConfig, modelId)
-            // @ts-ignore
-            .then((collection: Collection<DocumentType>) => collection.insert({...data}))
+            .then((collection: Collection<DocumentType>): void => {
+                // @ts-ignore
+                return collection.insert({...data});
+            })
             .then(() => {
                 const successResult: CrudResponseType = {isSuccess: true, data};
 
@@ -41,14 +43,24 @@ export function addDataBaseApi(app: Application, databaseCmsServerConfig: Databa
             return;
         }
 
-        const {urlParameters, data} = requestData;
+        const {urlParameters, modelConfig} = requestData;
+        const {keyId} = modelConfig;
         const {instanceId, modelId} = urlParameters;
 
         getCollection<DocumentType>(databaseCmsServerConfig, modelId)
-            // @ts-ignore
-            .then((collection: Collection<DocumentType>) => collection.insert({...data}))
-            .then(() => {
-                const successResult: CrudResponseType = {isSuccess: true, data};
+            .then(
+                (collection: Collection<DocumentType>): Promise<DocumentType | null> => {
+                    // @ts-ignore
+                    return collection.findOne({[keyId]: instanceId});
+                }
+            )
+            .then((instance: DocumentType | null) => {
+                if (!instance) {
+                    response.json(dataBaseErrorResult);
+                    return;
+                }
+
+                const successResult: CrudResponseType = {isSuccess: true, data: instance};
 
                 response.json(successResult);
             })

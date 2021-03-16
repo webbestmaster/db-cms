@@ -5,12 +5,7 @@ import {serverConst} from '../../../data-base-const';
 import {decrypt, encrypt, getRandomString, parseCookie} from '../../../util/string';
 import {logError} from '../../../util/log';
 
-export type SessionDataType = {
-    date: number;
-    id: string;
-    login: string;
-    hash: string;
-};
+import {SessionDataType} from './session-api-type';
 
 export function setSessionCookie(response: Response, admin: AdminType): void {
     const sessionData: SessionDataType = {
