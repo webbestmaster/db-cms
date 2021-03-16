@@ -18,8 +18,8 @@ export const apiRouteMap = {
     crud: {
         create: '/api/crud/create/:modelId',
         read: '/api/crud/read/:modelId/:instanceId',
-        readList: '/api/crud/read/:modelId', // TODO: add search query here
-        update: '/api/crud/update/:modelId',
-        remove: '/api/crud/delete/:modelId',
+        readList: '/api/crud/read-list/:modelId', // TODO: add search query here
+        update: '/api/crud/update/:modelId/:instanceId',
+        annihilate: '/api/crud/delete/:modelId/:instanceId',
     },
 };

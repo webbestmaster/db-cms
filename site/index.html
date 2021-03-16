@@ -18,6 +18,7 @@
 
 
 <button id="create">create</button>
+<button id="read">read</button>
 
 <script>
     fetch('/api/auth/login', {
@@ -43,6 +44,22 @@
             })
                 .then(data => data.json())
                 .then(result => console.log('create result:', result));
+        }, false);
+
+</script>
+
+<script>
+
+    document
+        .querySelector('#read')
+        .addEventListener('click', () => {
+            fetch('/api/crud/read/user-model/1615917636783', {
+                method: 'get',
+                credentials: 'include',
+                headers: {'Content-Type': 'application/json'}
+            })
+                .then(data => data.json())
+                .then(result => console.log('read result:', result));
         }, false);
 
 </script>

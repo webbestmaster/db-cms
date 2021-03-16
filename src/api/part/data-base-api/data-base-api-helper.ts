@@ -16,9 +16,11 @@ export function defineRequestData(
 ): DefinedRequestDataType | null {
     const sessionData = getSessionData(request);
 
-    log('[DbCmsServer] sessionData:', sessionData);
+    log('[defineRequestData] sessionData:', sessionData);
 
     const admin = getAdminBySession(databaseCmsServerConfig, sessionData);
+
+    log('[defineRequestData] admin:', admin);
 
     if (!admin) {
         return null;
@@ -26,18 +28,15 @@ export function defineRequestData(
 
     const {modelId, instanceId} = getMapFromObject<UrlParametersType>(request.params || {}, defaultUrlParameters);
 
+    log('[defineRequestData] modelId, instanceId:', modelId, instanceId);
+
     const modelConfig = findInArray<ModelConfigType>(databaseCmsServerConfig.modelList, {id: modelId});
 
     if (!modelConfig) {
         return null;
     }
 
-    const data = request.body;
-    const {schema} = modelConfig;
-
-    if (!getIsValid(data, schema)) {
-        return null;
-    }
+    log('[defineRequestData] modelConfig:', modelId, instanceId);
 
     return {
         modelConfig,
@@ -46,6 +45,6 @@ export function defineRequestData(
             instanceId,
         },
         urlQueryParameters: null,
-        data,
+        data: request.body,
     };
 }

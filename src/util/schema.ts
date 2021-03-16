@@ -1,5 +1,3 @@
-import {MongoClient, Db, Collection, MongoError} from 'mongodb';
-import {Application, Request, Response} from 'express';
 import {Validator, Schema} from 'jsonschema';
 
 import {DocumentType} from '../data-base-cms-type';
