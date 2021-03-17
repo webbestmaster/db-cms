@@ -18,7 +18,7 @@ export const apiRouteMap = {
     crud: {
         create: '/api/crud/create/:modelId', // done - post
         read: '/api/crud/read/:modelId/:instanceId', // done - get
-        readList: '/api/crud/read-list/:modelId/:pageIndex/:pageSize', // in progress - get // TODO: add search/filter query and sort
+        readList: '/api/crud/read-list/:modelId/:pageIndex/:pageSize', // done - get
         update: '/api/crud/update/:modelId/:instanceId', // not started - post
         annihilate: '/api/crud/delete/:modelId/:instanceId', // not started - delete
     },

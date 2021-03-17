@@ -1,3 +1,5 @@
+import {FilterQuery} from 'mongodb';
+
 import {DocumentType, ModelConfigType, SortDirectionType} from '../../../data-base-cms-type';
 
 export type UrlParametersType = {
@@ -5,11 +7,11 @@ export type UrlParametersType = {
     instanceId: string;
     pageIndex: string;
     pageSize: string;
-    // sortDirection: SortDirectionType;
 };
 
 export type UrlQueryParametersType = {
     sort: Record<string, SortDirectionType>;
+    find: FilterQuery<DocumentType>;
 };
 
 export type DefinedRequestDataType = {

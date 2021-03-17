@@ -1,3 +1,4 @@
+import {ObjectId} from 'mongodb';
 import {Schema} from 'jsonschema';
 
 export type ModelConfigType = {
@@ -35,9 +36,9 @@ export type AuthResponseType = {
     user: LoginDataType | null;
 };
 
-export type DocumentType = {
-    [key: string]: string | number | boolean | Array<string> | Array<number> | Array<boolean>;
-};
+export type DocumentValueType = string | number | boolean | Array<string> | Array<number> | Array<boolean> | ObjectId;
+
+export type DocumentType = Record<string, DocumentValueType>;
 
 export type CrudResponseType = {
     isSuccess: boolean;

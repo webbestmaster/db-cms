@@ -41,7 +41,7 @@
                 method: 'post',
                 credentials: 'include',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({userId: String(Date.now()), login: 'admin', password: String(Math.random())})
+                body: JSON.stringify({userId: String(Date.now()), login: 'админ', password: String(Math.random())})
             })
                 .then(data => data.json())
                 .then(result => console.log('create result:', result));
@@ -70,11 +70,15 @@
     document
         .querySelector('#read-list')
         .addEventListener('click', () => {
-            fetch('/api/crud/read-list/user-model/1/4?sort[password]=-1&sort[userId]=1', {
-                method: 'get',
-                credentials: 'include',
-                headers: {'Content-Type': 'application/json'}
-            })
+            // fetch('/api/crud/read-list/user-model/1/4?sort[password]=-1&sort[userId]=1', {
+            // fetch(`/api/crud/read-list/user-model/0/4?sort[password]=-1&sort[userId]=1&find[login]=${JSON.stringify('админ')}`, {
+            fetch(
+                `/api/crud/read-list/user-model/0/4?sort[password]=-1&sort[userId]=1&find[login]=${JSON.stringify({"$regex": "адм", "$options": "i"})}`,
+                {
+                    method: 'get',
+                    credentials: 'include',
+                    headers: {'Content-Type': 'application/json'}
+                })
                 .then(data => data.json())
                 .then(result => console.log('read-list result:', result));
         }, false);

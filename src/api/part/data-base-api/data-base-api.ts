@@ -1,4 +1,4 @@
-import {MongoClient, Db, Collection, MongoError} from 'mongodb';
+import {MongoClient, Db, Collection, MongoError, ObjectId} from 'mongodb';
 import {Application, Request, Response} from 'express';
 
 import {apiRouteMap} from '../../../data-base-const';
@@ -29,13 +29,11 @@ export function addDataBaseApi(app: Application, databaseCmsServerConfig: Databa
         }
 
         getCollection<DocumentType>(databaseCmsServerConfig, modelId)
-            .then((collection: Collection<DocumentType>): void => {
-                return (
-                    collection
-                        // @ts-ignore
-                        .insertOne({...data})
-                );
-            })
+            .then(
+                (collection: Collection<DocumentType>): Promise<unknown> => {
+                    return collection.insertOne({...data, _id: new ObjectId()});
+                }
+            )
             .then(() => {
                 const successResult: CrudResponseType = {isSuccess: true, data, size: 1};
 
@@ -87,10 +85,9 @@ export function addDataBaseApi(app: Application, databaseCmsServerConfig: Databa
             return;
         }
 
-        const {urlParameters, modelConfig, urlQueryParameters} = requestData;
-        const {keyId} = modelConfig;
-        const {sort} = urlQueryParameters;
-        const {modelId, instanceId, pageIndex, pageSize} = urlParameters;
+        const {urlParameters, urlQueryParameters} = requestData;
+        const {sort, find} = urlQueryParameters;
+        const {modelId, pageIndex, pageSize} = urlParameters;
         const pageIndexInt = Number.parseInt(pageIndex, 10);
         const pageSizeInt = Number.parseInt(pageSize, 10);
 
@@ -98,49 +95,12 @@ export function addDataBaseApi(app: Application, databaseCmsServerConfig: Databa
             .then(
                 (collection: Collection<DocumentType>): Promise<[Array<DocumentType>, number]> => {
                     const cursor = collection
-                        .find({})
+                        .find(find)
                         .sort(sort)
                         .skip(pageSizeInt * pageIndexInt)
                         .limit(pageSizeInt);
 
                     return Promise.all<Array<DocumentType>, number>([cursor.toArray(), cursor.count(false)]);
-
-                    /*
-                    collection
-                        .find({$or: [...getSearchParameters(request)]})
-                        .sort({[sortParameter]: sortDirection}) +
-                        .skip(pageSize * pageIndex) +
-                        .limit(pageSize) +
-                        .toArray((error: ?Error, documentList: ?Array<MongoDocumentType>) => {
-                        if (error || !Array.isArray(documentList)) {
-                            response.status(400);
-                            response.json({
-                                isSuccessful: false,
-                                errorList: [documentApiRouteMap.getDocumentList + ': Can not read document collection!'],
-                            });
-                            return;
-                        }
-
-                        response.json(documentList);
-                    });
-*/
-
-                    /*
-                    collection
-                        // $FlowFixMe
-                        .find({$or: [...getSearchParameters(request)], isActive: true})
-                        .toArray((error: ?Error, documentList: ?Array<MongoDocumentType>) => {
-                        if (error || !Array.isArray(documentList)) {
-                            response.status(400);
-                            response.json([]);
-                            return;
-                        }
-
-                        response.json(documentList);
-                    });
-*/
-
-                    // return collection.findOne({[keyId]: instanceId});
                 }
             )
             .then((collectedData: [Array<DocumentType>, number]) => {

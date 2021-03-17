@@ -1,22 +1,28 @@
 import {Request} from 'express';
+import {FilterQuery} from 'mongodb';
 
 import {getAdminBySession, getSessionData} from '../session-api/session-api-helper';
 import {log} from '../../../util/log';
-import {DatabaseCmsServerConfigType, ModelConfigType, SortDirectionType} from '../../../data-base-cms-type';
+import {
+    DatabaseCmsServerConfigType,
+    DocumentType,
+    ModelConfigType,
+    SortDirectionType,
+} from '../../../data-base-cms-type';
 import {getMapFromObject} from '../../../util/object';
 import {findInArray} from '../../../util/array';
-import {getIsValid} from '../../../util/schema';
 
 import {DefinedRequestDataType, UrlParametersType, UrlQueryParametersType} from './data-base-api-type';
 import {defaultUrlParameters} from './data-base-api-const';
 
 function getUrlQueryParameters(request: Request): UrlQueryParametersType {
     let sort: Record<string, SortDirectionType> = {};
+    let find: FilterQuery<DocumentType> = {};
 
     const {query} = request;
 
     if (!query) {
-        return {sort};
+        return {sort, find};
     }
 
     const querySort = query.sort || {};
@@ -29,9 +35,17 @@ function getUrlQueryParameters(request: Request): UrlQueryParametersType {
         }
     });
 
-    return {
-        sort,
-    };
+    const queryFind = query.find || {};
+
+    Object.keys(queryFind).forEach((queryFindKey: string) => {
+        try {
+            find = {...find, [queryFindKey]: JSON.parse(queryFind[queryFindKey])};
+        } catch {
+            log('can not do JSON.parse(queryFind[queryFindKey]): ', queryFind, queryFindKey);
+        }
+    });
+
+    return {sort, find};
 }
 
 export function defineRequestData(
