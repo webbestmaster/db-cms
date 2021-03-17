@@ -1,4 +1,4 @@
-import {DocumentType, ModelConfigType} from '../../../data-base-cms-type';
+import {DocumentType, ModelConfigType, SortDirectionType} from '../../../data-base-cms-type';
 
 export type UrlParametersType = {
     modelId: string;
@@ -8,7 +8,9 @@ export type UrlParametersType = {
     // sortDirection: SortDirectionType;
 };
 
-export type UrlQueryParametersType = unknown;
+export type UrlQueryParametersType = {
+    sort: Record<string, SortDirectionType>;
+};
 
 export type DefinedRequestDataType = {
     modelConfig: ModelConfigType;

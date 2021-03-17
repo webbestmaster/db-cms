@@ -70,7 +70,7 @@
     document
         .querySelector('#read-list')
         .addEventListener('click', () => {
-            fetch('/api/crud/read-list/user-model/1/4', {
+            fetch('/api/crud/read-list/user-model/1/4?sort[password]=-1&sort[userId]=1', {
                 method: 'get',
                 credentials: 'include',
                 headers: {'Content-Type': 'application/json'}

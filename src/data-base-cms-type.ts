@@ -45,6 +45,4 @@ export type CrudResponseType = {
     size: number;
 };
 
-export type KeyValueType = {[key: string]: string | void};
-
 export type SortDirectionType = -1 | 1;

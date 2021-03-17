@@ -6,7 +6,6 @@ const algorithm = 'aes-256-ctr';
 const randomBytes = crypto.randomBytes(16);
 
 import {serverConst} from '../data-base-const';
-import {KeyValueType} from '../data-base-cms-type';
 
 export function getRandomString(): string {
     return crypto.randomBytes(16).toString('hex');
@@ -34,8 +33,8 @@ export function decrypt(hash: string): string {
     return Buffer.concat([decipher.update(Buffer.from(hash, 'hex')), decipher.final()]).toString();
 }
 
-export function parseCookie(value: string): KeyValueType {
-    const result: KeyValueType = {};
+export function parseCookie(value: string): Record<string, string> {
+    const result: Record<string, string> = {};
 
     value
         .split(',')

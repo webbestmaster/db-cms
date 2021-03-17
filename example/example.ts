@@ -22,11 +22,10 @@ const userModel: ModelConfigType = {
     schema: {
         type: 'object',
         properties: {
-            userId: {type: 'string'},
-            login: {type: 'string'},
-            password: {type: 'string'},
+            userId: {type: 'string', required: true},
+            login: {type: 'string', required: true},
+            password: {type: 'string', required: true},
         },
-        required: ['userId', 'login', 'password'],
     },
     keyId: 'userId',
 };
@@ -37,13 +36,12 @@ const documentModel: ModelConfigType = {
     schema: {
         type: 'object',
         properties: {
-            documentId: {type: 'string'},
-            title: {type: 'string'},
-            description: {type: 'string'},
-            content: {type: 'string'},
-            author: {type: 'string'},
+            documentId: {type: 'string', required: true},
+            title: {type: 'string', required: true},
+            description: {type: 'string', required: true},
+            content: {type: 'string', required: true},
+            author: {type: 'string', required: true},
         },
-        required: ['documentId', 'title', 'description', 'content', 'author'],
     },
     keyId: 'documentId',
 };

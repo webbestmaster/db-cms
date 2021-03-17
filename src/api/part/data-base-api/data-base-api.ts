@@ -33,7 +33,7 @@ export function addDataBaseApi(app: Application, databaseCmsServerConfig: Databa
                 return (
                     collection
                         // @ts-ignore
-                        .insert({...data})
+                        .insertOne({...data})
                 );
             })
             .then(() => {
@@ -87,8 +87,9 @@ export function addDataBaseApi(app: Application, databaseCmsServerConfig: Databa
             return;
         }
 
-        const {urlParameters, modelConfig} = requestData;
+        const {urlParameters, modelConfig, urlQueryParameters} = requestData;
         const {keyId} = modelConfig;
+        const {sort} = urlQueryParameters;
         const {modelId, instanceId, pageIndex, pageSize} = urlParameters;
         const pageIndexInt = Number.parseInt(pageIndex, 10);
         const pageSizeInt = Number.parseInt(pageSize, 10);
@@ -98,7 +99,7 @@ export function addDataBaseApi(app: Application, databaseCmsServerConfig: Databa
                 (collection: Collection<DocumentType>): Promise<[Array<DocumentType>, number]> => {
                     const cursor = collection
                         .find({})
-                        .sort({[keyId]: defaultDocumentSort})
+                        .sort(sort)
                         .skip(pageSizeInt * pageIndexInt)
                         .limit(pageSizeInt);
 
