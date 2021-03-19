@@ -37,7 +37,7 @@ export function parseCookie(value: string): Record<string, string> {
     const result: Record<string, string> = {};
 
     value
-        .split(',')
+        .split(';')
         .map((keyValue: string): string => keyValue.trim())
         .filter(Boolean)
         .forEach((keyValue: string) => {
