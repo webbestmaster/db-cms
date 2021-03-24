@@ -32,7 +32,6 @@ export type DatabaseCmsServerConfigType = {
 };
 
 export type AuthResponseType = {
-    isSuccess: boolean;
     user: LoginDataType | null;
 };
 

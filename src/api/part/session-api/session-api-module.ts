@@ -20,7 +20,7 @@ export async function authLogin(
     if (!admin) {
         return {
             statusCode: 404,
-            data: {user: null, isSuccess: false},
+            data: {user: null},
         };
     }
 
@@ -30,7 +30,6 @@ export async function authLogin(
         statusCode: 200,
         data: {
             user: {login: admin.login},
-            isSuccess: true,
         },
     };
 }
@@ -40,7 +39,7 @@ export async function authLogout(response: Response): Promise<ApiResultType<Auth
 
     return {
         statusCode: 200,
-        data: {user: null, isSuccess: true},
+        data: {user: null},
     };
 }
 
@@ -54,7 +53,7 @@ export async function authLogoutAll(
     if (!admin) {
         return {
             statusCode: 404,
-            data: {user: null, isSuccess: false},
+            data: {user: null},
         };
     }
 
@@ -64,6 +63,6 @@ export async function authLogoutAll(
 
     return {
         statusCode: 200,
-        data: {user: null, isSuccess: true},
+        data: {user: null},
     };
 }
