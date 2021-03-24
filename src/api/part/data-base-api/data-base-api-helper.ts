@@ -15,7 +15,7 @@ import {findInArray} from '../../../util/array';
 import {DefinedRequestDataType, UrlParametersType, UrlQueryParametersType} from './data-base-api-type';
 import {defaultUrlParameters} from './data-base-api-const';
 
-function getUrlQueryParameters(request: Request): UrlQueryParametersType {
+export function getUrlQueryParameters(request: Request): UrlQueryParametersType {
     let sort: Record<string, SortDirectionType> = {};
     let find: FilterQuery<DocumentType> = {};
 
@@ -67,8 +67,6 @@ export function defineRequestData(
     if (!modelConfig) {
         return null;
     }
-
-    console.log(getUrlQueryParameters(request));
 
     return {
         modelConfig,
