@@ -47,31 +47,3 @@ export function getUrlQueryParameters(request: Request): UrlQueryParametersType 
 
     return {sort, find};
 }
-
-export function defineRequestData(
-    databaseCmsServerConfig: DatabaseCmsServerConfigType,
-    request: Request
-): DefinedRequestDataType | null {
-    const sessionData = getSessionData(request);
-
-    const admin = getAdminBySession(databaseCmsServerConfig, sessionData);
-
-    if (!admin) {
-        return null;
-    }
-
-    const urlParameters = getMapFromObject<UrlParametersType>(request.params || {}, defaultUrlParameters);
-
-    const modelConfig = findInArray<ModelConfigType>(databaseCmsServerConfig.modelList, {id: urlParameters.modelId});
-
-    if (!modelConfig) {
-        return null;
-    }
-
-    return {
-        modelConfig,
-        urlParameters,
-        urlQueryParameters: getUrlQueryParameters(request),
-        data: request.body,
-    };
-}
