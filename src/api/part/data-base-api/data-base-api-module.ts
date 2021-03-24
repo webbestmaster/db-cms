@@ -1,5 +1,4 @@
-import {MongoClient, Db, Collection, MongoError, ObjectId} from 'mongodb';
-import {Application, Request, Response} from 'express';
+import {Collection, ObjectId} from 'mongodb';
 
 import {ApiResultType, DryRequestType} from '../../api-type';
 import {CrudResponseType, DocumentType} from '../../../data-base-cms-type';

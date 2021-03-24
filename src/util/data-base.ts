@@ -1,4 +1,4 @@
-import {MongoClient, Db, Collection, MongoError} from 'mongodb';
+import {Collection, Db, MongoClient} from 'mongodb';
 
 import {DatabaseCmsServerConfigType} from '../data-base-cms-type';
 

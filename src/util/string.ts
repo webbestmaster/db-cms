@@ -2,10 +2,10 @@
 
 import crypto from 'crypto';
 
+import {serverConst} from '../data-base-const';
+
 const algorithm = 'aes-256-ctr';
 const randomBytes = crypto.randomBytes(16);
-
-import {serverConst} from '../data-base-const';
 
 export function getRandomString(): string {
     return crypto.randomBytes(16).toString('hex');

@@ -1,7 +1,26 @@
-import {AdminType, DatabaseCmsServerConfigType, DocumentType, ModelConfigType} from '../data-base-cms-type';
+import {FilterQuery} from 'mongodb';
+
+import {
+    AdminType,
+    DatabaseCmsServerConfigType,
+    DocumentType,
+    ModelConfigType,
+    SortDirectionType,
+} from '../data-base-cms-type';
 
 import {SessionDataType} from './part/session-api/session-api-type';
-import {UrlParametersType, UrlQueryParametersType} from './part/data-base-api/data-base-api-type';
+
+export type UrlParametersType = {
+    modelId: string;
+    instanceId: string;
+    pageIndex: string;
+    pageSize: string;
+};
+
+export type UrlQueryParametersType = {
+    sort: Record<string, SortDirectionType>;
+    find: FilterQuery<DocumentType>;
+};
 
 export type DryRequestType = {
     body: DocumentType;

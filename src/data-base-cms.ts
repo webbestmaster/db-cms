@@ -1,4 +1,4 @@
-import express, {Request, Response} from 'express';
+import express from 'express';
 
 import {addApiIntoApplication} from './api/api';
 import {DatabaseCmsServerConfigType} from './data-base-cms-type';

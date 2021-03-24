@@ -1,7 +1,7 @@
-import {Application, Request, Response} from 'express';
+import {Response} from 'express';
 
 import {ApiResultType, DryRequestType} from '../../api-type';
-import {AdminType, AuthResponseType, DatabaseCmsServerConfigType} from '../../../data-base-cms-type';
+import {AdminType, AuthResponseType} from '../../../data-base-cms-type';
 import {findInArray} from '../../../util/array';
 import {getRandomString} from '../../../util/string';
 

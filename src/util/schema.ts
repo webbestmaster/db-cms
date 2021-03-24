@@ -1,4 +1,4 @@
-import {Validator, Schema} from 'jsonschema';
+import {Schema, Validator} from 'jsonschema';
 
 import {DocumentType} from '../data-base-cms-type';
 
