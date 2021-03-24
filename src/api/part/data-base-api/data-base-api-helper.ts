@@ -54,11 +54,11 @@ export function defineRequestData(
 ): DefinedRequestDataType | null {
     const sessionData = getSessionData(request);
 
-    log('[defineRequestData] sessionData:', sessionData);
+    // log('[defineRequestData] sessionData:', sessionData);
 
     const admin = getAdminBySession(databaseCmsServerConfig, sessionData);
 
-    log('[defineRequestData] admin:', admin);
+    // log('[defineRequestData] admin:', admin);
 
     if (!admin) {
         return null;

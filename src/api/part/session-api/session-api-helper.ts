@@ -3,7 +3,7 @@ import {Request, Response} from 'express';
 import {AdminType, DatabaseCmsServerConfigType} from '../../../data-base-cms-type';
 import {serverConst} from '../../../data-base-const';
 import {decrypt, encrypt, getRandomString, parseCookie} from '../../../util/string';
-import {logError} from '../../../util/log';
+import {log} from '../../../util/log';
 
 import {SessionDataType} from './session-api-type';
 
@@ -32,7 +32,7 @@ export function getSessionData(request: Request): SessionDataType | null {
     const sessionCookie = parsedCookie[serverConst.session.cookieKey] || '';
 
     try {
-        const sessionData = JSON.parse(decrypt(sessionCookie));
+        const sessionData = JSON.parse(decrypt(sessionCookie)) || {};
 
         const {date, id, login, hash} = sessionData;
 
@@ -45,7 +45,7 @@ export function getSessionData(request: Request): SessionDataType | null {
             return {date, id, login, hash};
         }
     } catch {
-        logError('getSessionData can not parse session');
+        log('getSessionData can not parse session');
     }
 
     return null;
