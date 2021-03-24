@@ -40,7 +40,6 @@ export type DocumentValueType = string | number | boolean | Array<string> | Arra
 export type DocumentType = Record<string, DocumentValueType>;
 
 export type CrudResponseType = {
-    isSuccess: boolean;
     data: DocumentType | Array<DocumentType> | null;
     size: number;
 };

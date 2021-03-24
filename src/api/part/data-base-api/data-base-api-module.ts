@@ -40,7 +40,7 @@ export async function dataBaseCreate(dryRequest: DryRequestType): Promise<ApiRes
 
     return {
         statusCode: 200,
-        data: {isSuccess: true, data: body, size: 1},
+        data: {data: body, size: 1},
     };
 }
 
@@ -75,7 +75,7 @@ export async function dataBaseRead(dryRequest: DryRequestType): Promise<ApiResul
 
     return {
         statusCode: 200,
-        data: {isSuccess: true, data: instance, size: 1},
+        data: {data: instance, size: 1},
     };
 }
 
@@ -115,6 +115,6 @@ export async function dataBaseReadList(dryRequest: DryRequestType): Promise<ApiR
 
     return {
         statusCode: 200,
-        data: {isSuccess: true, data: instanceList, size: count},
+        data: {data: instanceList, size: count},
     };
 }
