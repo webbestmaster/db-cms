@@ -25,7 +25,7 @@ export function getDryRequest(databaseCmsServerConfig: DatabaseCmsServerConfigTy
     });
     const urlQueryParameters: UrlQueryParametersType = getUrlQueryParameters(request);
 
-    return {body, sessionData, admin, modelConfig, urlParameters, urlQueryParameters};
+    return {body, sessionData, admin, modelConfig, urlParameters, urlQueryParameters, databaseCmsServerConfig};
 }
 
 export function catchSuccess<DataType>(result: ApiResultType<DataType>, response: Response): void {

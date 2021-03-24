@@ -2,45 +2,32 @@ import {MongoClient, Db, Collection, MongoError, ObjectId} from 'mongodb';
 import {Application, Request, Response} from 'express';
 
 import {apiRouteMap} from '../../../data-base-const';
-import {CrudResponseType, DatabaseCmsServerConfigType, DocumentType} from '../../../data-base-cms-type';
+import {
+    AuthResponseType,
+    CrudResponseType,
+    DatabaseCmsServerConfigType,
+    DocumentType,
+} from '../../../data-base-cms-type';
 import {getCollection} from '../../../util/data-base';
 import {log} from '../../../util/log';
 import {getIsValid} from '../../../util/schema';
 
+import {catchError, catchSuccess, getDryRequest} from '../../api-helper';
+
+import {ApiResultType} from '../../api-type';
+
 import {defineRequestData} from './data-base-api-helper';
 import {dataBaseErrorResult, defaultDocumentSort} from './data-base-api-const';
+import {dataBaseCreate} from './data-base-api-module';
 
 export function addDataBaseApi(app: Application, databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
     app.post(apiRouteMap.crud.create, (request: Request, response: Response) => {
-        const requestData = defineRequestData(databaseCmsServerConfig, request);
-
-        if (!requestData) {
-            response.json(dataBaseErrorResult);
-            return;
-        }
-
-        const {urlParameters, data, modelConfig} = requestData;
-        const {modelId} = urlParameters;
-        const {schema} = modelConfig;
-
-        if (!getIsValid(data, schema)) {
-            response.json(dataBaseErrorResult);
-            return;
-        }
-
-        getCollection<DocumentType>(databaseCmsServerConfig, modelId)
-            .then(
-                (collection: Collection<DocumentType>): Promise<unknown> => {
-                    return collection.insertOne({...data, _id: new ObjectId()});
-                }
-            )
-            .then(() => {
-                const successResult: CrudResponseType = {isSuccess: true, data, size: 1};
-
-                response.json(successResult);
+        dataBaseCreate(getDryRequest(databaseCmsServerConfig, request))
+            .then((result: ApiResultType<CrudResponseType>) => {
+                catchSuccess<CrudResponseType>(result, response);
             })
-            .catch(() => {
-                response.json(dataBaseErrorResult);
+            .catch((error: Error) => {
+                catchError(error, response);
             });
     });
 

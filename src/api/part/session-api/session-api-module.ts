@@ -8,11 +8,10 @@ import {getRandomString} from '../../../util/string';
 import {removeSessionCookie, setSessionCookie} from './session-api-helper';
 
 export async function authLogin(
-    databaseCmsServerConfig: DatabaseCmsServerConfigType,
     dryRequest: DryRequestType,
     response: Response
 ): Promise<ApiResultType<AuthResponseType>> {
-    const {body} = dryRequest;
+    const {body, databaseCmsServerConfig} = dryRequest;
     const {login, password} = body;
 
     const admin = findInArray<AdminType>(databaseCmsServerConfig.adminList, {login, password});
@@ -44,7 +43,6 @@ export async function authLogout(response: Response): Promise<ApiResultType<Auth
 }
 
 export async function authLogoutAll(
-    databaseCmsServerConfig: DatabaseCmsServerConfigType,
     dryRequest: DryRequestType,
     response: Response
 ): Promise<ApiResultType<AuthResponseType>> {
