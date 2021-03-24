@@ -4,7 +4,7 @@ import {DatabaseCmsServerConfigType} from '../data-base-cms-type';
 
 import {log} from './log';
 
-const getDataBaseCache: {[key: string]: Promise<Db>} = {};
+const getDataBaseCache: {[key: string]: Promise<Db> | void} = {};
 
 export function getCollection<ItemType>(
     databaseCmsServerConfig: DatabaseCmsServerConfigType,
@@ -18,7 +18,7 @@ export function getCollection<ItemType>(
 export function getDataBase(databaseCmsServerConfig: DatabaseCmsServerConfigType): Promise<Db> {
     const {database} = databaseCmsServerConfig;
     const {name, connectUrl} = database;
-    const cachedDatabase: Promise<Db> = getDataBaseCache[name];
+    const cachedDatabase: Promise<Db> | void = getDataBaseCache[name];
 
     if (cachedDatabase) {
         log('getDataBase: MongoDataBase get from cache, name:', name);

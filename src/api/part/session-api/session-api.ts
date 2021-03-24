@@ -5,35 +5,22 @@ import {AdminType, AuthResponseType, DatabaseCmsServerConfigType} from '../../..
 import {getRandomString} from '../../../util/string';
 import {findInArray} from '../../../util/array';
 
+import {catchError, catchSuccess, getDryRequest} from '../../api-helper';
+
+import {ApiResultType} from '../../api-type';
+
 import {getAdminBySession, getSessionData, removeSessionCookie, setSessionCookie} from './session-api-helper';
+import {authLogin} from './session-api-module';
 
 export function addSessionApi(app: Application, databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
     app.post(apiRouteMap.auth.login, (request: Request, response: Response) => {
-        const {login, password} = request.body;
-        // const sessionData = getSessionData(request);
-
-        // log('[DbCmsServer] sessionData:', sessionData);
-
-        const admin = findInArray<AdminType>(databaseCmsServerConfig.adminList, {login, password});
-
-        if (!admin) {
-            const errorResult: AuthResponseType = {
-                user: null,
-                isSuccess: false,
-            };
-
-            response.json(errorResult);
-            return;
-        }
-
-        setSessionCookie(response, admin);
-
-        const successResult: AuthResponseType = {
-            user: {login: admin.login},
-            isSuccess: true,
-        };
-
-        response.json(successResult);
+        authLogin(databaseCmsServerConfig, getDryRequest(request), response)
+            .then((result: ApiResultType<AuthResponseType>) => {
+                catchSuccess<AuthResponseType>(result, response);
+            })
+            .catch((error: Error) => {
+                catchError(error, response);
+            });
     });
 
     app.get(apiRouteMap.auth.logout, (request: Request, response: Response) => {

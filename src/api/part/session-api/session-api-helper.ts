@@ -60,10 +60,14 @@ export function getAdminBySession(
     }
 
     const {login, hash} = sessionData;
+    const {adminList} = databaseCmsServerConfig;
 
-    return (
-        databaseCmsServerConfig.adminList.find((definedAdmin: AdminType): boolean => {
-            return definedAdmin.login === login && definedAdmin.hash === hash;
-        }) || null
-    );
+    // eslint-disable-next-line no-loops/no-loops
+    for (const admin of adminList) {
+        if (admin.hash === hash && admin.login === login) {
+            return admin;
+        }
+    }
+
+    return null;
 }
