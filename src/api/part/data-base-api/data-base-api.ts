@@ -18,7 +18,7 @@ import {ApiResultType} from '../../api-type';
 
 import {defineRequestData} from './data-base-api-helper';
 import {dataBaseErrorResult, defaultDocumentSort} from './data-base-api-const';
-import {dataBaseCreate} from './data-base-api-module';
+import {dataBaseCreate, dataBaseRead} from './data-base-api-module';
 
 export function addDataBaseApi(app: Application, databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
     app.post(apiRouteMap.crud.create, (request: Request, response: Response) => {
@@ -32,35 +32,12 @@ export function addDataBaseApi(app: Application, databaseCmsServerConfig: Databa
     });
 
     app.get(apiRouteMap.crud.read, (request: Request, response: Response) => {
-        const requestData = defineRequestData(databaseCmsServerConfig, request);
-
-        if (!requestData) {
-            response.json(dataBaseErrorResult);
-            return;
-        }
-
-        const {urlParameters, modelConfig} = requestData;
-        const {keyId} = modelConfig;
-        const {instanceId, modelId} = urlParameters;
-
-        getCollection<DocumentType>(databaseCmsServerConfig, modelId)
-            .then(
-                (collection: Collection<DocumentType>): Promise<DocumentType | null> => {
-                    return collection.findOne({[keyId]: instanceId});
-                }
-            )
-            .then((instance: DocumentType | null) => {
-                if (!instance) {
-                    response.json(dataBaseErrorResult);
-                    return;
-                }
-
-                const successResult: CrudResponseType = {isSuccess: true, data: instance, size: 1};
-
-                response.json(successResult);
+        dataBaseRead(getDryRequest(databaseCmsServerConfig, request))
+            .then((result: ApiResultType<CrudResponseType>) => {
+                catchSuccess<CrudResponseType>(result, response);
             })
-            .catch(() => {
-                response.json(dataBaseErrorResult);
+            .catch((error: Error) => {
+                catchError(error, response);
             });
     });
 
