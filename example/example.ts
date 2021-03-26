@@ -54,6 +54,7 @@ const databaseCmsServerConfigType: DatabaseCmsServerConfigType = {
             login: 'admin',
             password: 'some-password',
             hash: getRandomString(),
+            apiKey: 'some secret api key',
         },
     ],
     database: {

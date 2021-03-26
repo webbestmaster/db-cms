@@ -12,6 +12,7 @@ export type AdminType = {
     login: string;
     password: string;
     hash: string; // secret hash to check valid/invalid session, and to drop all sessions
+    apiKey: string; // secret to authorize without login, leave empty to disable
 };
 
 export type LoginDataType = {

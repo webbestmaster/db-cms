@@ -15,21 +15,21 @@ export function setSessionCookie(response: Response, admin: AdminType): void {
         hash: admin.hash,
     };
 
-    response.cookie(serverConst.session.cookieKey, encrypt(JSON.stringify(sessionData)), {
+    response.cookie(serverConst.session.sessionKey, encrypt(JSON.stringify(sessionData)), {
         httpOnly: true,
         secure: true,
     });
 }
 
 export function removeSessionCookie(response: Response): void {
-    response.cookie(serverConst.session.cookieKey, '', {httpOnly: true, secure: true});
+    response.cookie(serverConst.session.sessionKey, '', {httpOnly: true, secure: true});
 }
 
 // eslint-disable-next-line complexity
 export function getSessionData(request: Request): SessionDataType | null {
     const parsedCookie = parseCookie(String(request.headers.cookie || ''));
 
-    const sessionCookie = parsedCookie[serverConst.session.cookieKey] || '';
+    const sessionCookie = parsedCookie[serverConst.session.sessionKey] || '';
 
     try {
         const sessionData = JSON.parse(decrypt(sessionCookie)) || {};
@@ -51,6 +51,7 @@ export function getSessionData(request: Request): SessionDataType | null {
     return null;
 }
 
+// eslint-disable-next-line complexity
 export function getAdminBySession(
     databaseCmsServerConfig: DatabaseCmsServerConfigType,
     sessionData: SessionDataType | null
@@ -65,6 +66,29 @@ export function getAdminBySession(
     // eslint-disable-next-line no-loops/no-loops
     for (const admin of adminList) {
         if (admin.hash === hash && admin.login === login) {
+            return admin;
+        }
+    }
+
+    return null;
+}
+
+// eslint-disable-next-line complexity
+export function getAdminByApiKey(
+    databaseCmsServerConfig: DatabaseCmsServerConfigType,
+    request: Request
+): AdminType | null {
+    const apiKey = String(request.headers[serverConst.api.apiHeaderKey] || '');
+
+    if (apiKey.trim() === '') {
+        return null;
+    }
+
+    const {adminList} = databaseCmsServerConfig;
+
+    // eslint-disable-next-line no-loops/no-loops
+    for (const admin of adminList) {
+        if (admin.apiKey === apiKey) {
             return admin;
         }
     }

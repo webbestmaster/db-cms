@@ -14,7 +14,7 @@ import {findInArray} from '../util/array';
 
 import {ApiResultType, DryRequestType, UrlParametersType, UrlQueryParametersType} from './api-type';
 import {SessionDataType} from './part/session-api/session-api-type';
-import {getAdminBySession, getSessionData} from './part/session-api/session-api-helper';
+import {getAdminByApiKey, getAdminBySession, getSessionData} from './part/session-api/session-api-helper';
 import {defaultUrlParameters} from './api-const';
 
 function getUrlQueryParameters(request: Request): UrlQueryParametersType {
@@ -53,7 +53,8 @@ function getUrlQueryParameters(request: Request): UrlQueryParametersType {
 export function getDryRequest(databaseCmsServerConfig: DatabaseCmsServerConfigType, request: Request): DryRequestType {
     const body: DocumentType = request.body || {};
     const sessionData: SessionDataType | null = getSessionData(request);
-    const admin: AdminType | null = getAdminBySession(databaseCmsServerConfig, sessionData);
+    const admin: AdminType | null
+        = getAdminBySession(databaseCmsServerConfig, sessionData) || getAdminByApiKey(databaseCmsServerConfig, request);
     const urlParameters: UrlParametersType = getMapFromObject<UrlParametersType>(
         request.params || {},
         defaultUrlParameters
@@ -63,7 +64,15 @@ export function getDryRequest(databaseCmsServerConfig: DatabaseCmsServerConfigTy
     });
     const urlQueryParameters: UrlQueryParametersType = getUrlQueryParameters(request);
 
-    return {body, sessionData, admin, modelConfig, urlParameters, urlQueryParameters, databaseCmsServerConfig};
+    return {
+        body,
+        sessionData,
+        admin,
+        modelConfig,
+        urlParameters,
+        urlQueryParameters,
+        databaseCmsServerConfig,
+    };
 }
 
 export function catchSuccess<DataType>(result: ApiResultType<DataType>, response: Response): void {
