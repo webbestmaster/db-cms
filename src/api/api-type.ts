@@ -33,6 +33,6 @@ export type DryRequestType = {
 };
 
 export type ApiResultType<DataType> = {
-    statusCode: 200 | 401 | 404;
+    statusCode: 200 | 400 | 401 | 404;
     data: DataType;
 };

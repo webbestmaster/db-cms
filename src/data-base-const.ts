@@ -10,6 +10,9 @@ export const serverConst = {
 };
 
 export const apiRouteMap = {
+    main: {
+        config: '/api/main/config', // not started - get
+    },
     auth: {
         login: '/api/auth/login', // done - post
         logout: '/api/auth/logout', // done - get
@@ -19,7 +22,7 @@ export const apiRouteMap = {
         create: '/api/crud/create/:modelId', // done - post
         read: '/api/crud/read/:modelId/:instanceId', // done - get
         readList: '/api/crud/read-list/:modelId/:pageIndex/:pageSize', // done - get
-        update: '/api/crud/update/:modelId/:instanceId', // not started - post
+        update: '/api/crud/update/:modelId', // in progress - patch
         annihilate: '/api/crud/delete/:modelId/:instanceId', // not started - delete
     },
 };

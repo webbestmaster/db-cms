@@ -25,16 +25,26 @@ export async function dataBaseCreate(dryRequest: DryRequestType): Promise<ApiRes
         };
     }
 
-    const {schema} = modelConfig;
+    const {schema, keyId} = modelConfig;
 
     if (!getIsValid(body, schema)) {
         return {
-            statusCode: 404,
+            statusCode: 400,
             data: dataBaseErrorResult,
         };
     }
 
     const collection: Collection<DocumentType> = await getCollection<DocumentType>(databaseCmsServerConfig, modelId);
+
+    // check for model already exists
+    const instance: DocumentType | null = await collection.findOne({[keyId]: body[keyId]});
+
+    if (instance) {
+        return {
+            statusCode: 400,
+            data: dataBaseErrorResult,
+        };
+    }
 
     await collection.insertOne({...body, _id: new ObjectId()});
 
@@ -116,5 +126,46 @@ export async function dataBaseReadList(dryRequest: DryRequestType): Promise<ApiR
     return {
         statusCode: 200,
         data: {data: instanceList, size: count},
+    };
+}
+
+export async function dataBaseUpdate(dryRequest: DryRequestType): Promise<ApiResultType<CrudResponseType>> {
+    const {databaseCmsServerConfig, modelConfig, urlParameters, urlQueryParameters, admin, body} = dryRequest;
+
+    if (!admin) {
+        return {
+            statusCode: 401,
+            data: dataBaseErrorResult,
+        };
+    }
+
+    if (!modelConfig) {
+        return {
+            statusCode: 404,
+            data: dataBaseErrorResult,
+        };
+    }
+
+    const {keyId} = modelConfig;
+    const {modelId} = urlParameters;
+    const searchQuery = {[keyId]: body[keyId]};
+
+    const collection: Collection<DocumentType> = await getCollection<DocumentType>(databaseCmsServerConfig, modelId);
+
+    // check for model already exists
+    const instance: DocumentType | null = await collection.findOne(searchQuery);
+
+    if (!instance) {
+        return {
+            statusCode: 404,
+            data: dataBaseErrorResult,
+        };
+    }
+
+    await collection.updateOne(searchQuery, {$set: body});
+
+    return {
+        statusCode: 200,
+        data: {data: body, size: 1},
     };
 }
