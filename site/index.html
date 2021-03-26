@@ -21,6 +21,7 @@
 <button id="read">read</button>
 <button id="read-list">read list</button>
 <button id="update">update</button>
+<button id="delete">delete</button>
 
 <script>
     fetch('/api/auth/login', {
@@ -42,7 +43,7 @@
                 method: 'post',
                 credentials: 'include',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({userId: String(Date.now()), login: 'админ', password: String(Math.random())})
+                body: JSON.stringify({userId: '1615917636783', login: 'админ', password: String(Math.random())})
             })
                 .then(data => data.json())
                 .then(result => console.log('create result:', result));
@@ -96,6 +97,22 @@
                 credentials: 'include',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({userId: '1615917636783', login: 'админ updated', password: String(Math.random())})
+            })
+                .then(data => data.json())
+                .then(result => console.log('create result:', result));
+        }, false);
+
+</script>
+
+<script>
+
+    document
+        .querySelector('#delete')
+        .addEventListener('click', () => {
+            fetch('/api/crud/delete/user-model/1615917636783', {
+                method: 'delete',
+                credentials: 'include',
+                headers: {'Content-Type': 'application/json'},
             })
                 .then(data => data.json())
                 .then(result => console.log('create result:', result));

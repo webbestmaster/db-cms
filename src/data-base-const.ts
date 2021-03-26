@@ -22,7 +22,7 @@ export const apiRouteMap = {
         create: '/api/crud/create/:modelId', // done - post
         read: '/api/crud/read/:modelId/:instanceId', // done - get
         readList: '/api/crud/read-list/:modelId/:pageIndex/:pageSize', // done - get
-        update: '/api/crud/update/:modelId', // in progress - patch
+        update: '/api/crud/update/:modelId', // done - post
         annihilate: '/api/crud/delete/:modelId/:instanceId', // not started - delete
     },
 };

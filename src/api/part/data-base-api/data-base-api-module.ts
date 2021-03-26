@@ -169,3 +169,44 @@ export async function dataBaseUpdate(dryRequest: DryRequestType): Promise<ApiRes
         data: {data: body, size: 1},
     };
 }
+
+export async function dataBaseDelete(dryRequest: DryRequestType): Promise<ApiResultType<CrudResponseType>> {
+    const {databaseCmsServerConfig, modelConfig, urlParameters, urlQueryParameters, admin, body} = dryRequest;
+
+    if (!admin) {
+        return {
+            statusCode: 401,
+            data: dataBaseErrorResult,
+        };
+    }
+
+    if (!modelConfig) {
+        return {
+            statusCode: 404,
+            data: dataBaseErrorResult,
+        };
+    }
+
+    const {keyId} = modelConfig;
+    const {modelId, instanceId} = urlParameters;
+    const searchQuery = {[keyId]: instanceId};
+
+    const collection: Collection<DocumentType> = await getCollection<DocumentType>(databaseCmsServerConfig, modelId);
+
+    // check for model already exists
+    const instance: DocumentType | null = await collection.findOne(searchQuery);
+
+    if (!instance) {
+        return {
+            statusCode: 404,
+            data: dataBaseErrorResult,
+        };
+    }
+
+    await collection.deleteOne(searchQuery);
+
+    return {
+        statusCode: 200,
+        data: {data: null, size: 1},
+    };
+}

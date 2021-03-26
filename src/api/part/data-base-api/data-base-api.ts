@@ -5,7 +5,7 @@ import {CrudResponseType, DatabaseCmsServerConfigType} from '../../../data-base-
 import {catchError, catchSuccess, getDryRequest} from '../../api-helper';
 import {ApiResultType} from '../../api-type';
 
-import {dataBaseCreate, dataBaseRead, dataBaseReadList, dataBaseUpdate} from './data-base-api-module';
+import {dataBaseCreate, dataBaseDelete, dataBaseRead, dataBaseReadList, dataBaseUpdate} from './data-base-api-module';
 
 export function addDataBaseApi(app: Application, databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
     app.post(apiRouteMap.crud.create, (request: Request, response: Response) => {
@@ -40,6 +40,16 @@ export function addDataBaseApi(app: Application, databaseCmsServerConfig: Databa
 
     app.post(apiRouteMap.crud.update, (request: Request, response: Response) => {
         dataBaseUpdate(getDryRequest(databaseCmsServerConfig, request))
+            .then((result: ApiResultType<CrudResponseType>) => {
+                catchSuccess<CrudResponseType>(result, response);
+            })
+            .catch((error: Error) => {
+                catchError(error, response);
+            });
+    });
+
+    app.delete(apiRouteMap.crud.annihilate, (request: Request, response: Response) => {
+        dataBaseDelete(getDryRequest(databaseCmsServerConfig, request))
             .then((result: ApiResultType<CrudResponseType>) => {
                 catchSuccess<CrudResponseType>(result, response);
             })
