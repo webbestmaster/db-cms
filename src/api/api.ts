@@ -1,4 +1,5 @@
 import {Application} from 'express';
+import fileUpload from 'express-fileupload';
 import cors from 'cors';
 import compression from 'compression';
 import bodyParser from 'body-parser';
@@ -15,8 +16,16 @@ export function addApiIntoApplication(app: Application, databaseCmsServerConfig:
 
     app.use(cors());
     app.use(compression({level: 9}));
-    app.use(bodyParser.json({limit: '75mb'}));
+    app.use(bodyParser.json({limit: '10mb'}));
     app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
+    app.use(
+        fileUpload({
+            limits: {
+                // 75 mb
+                fileSize: 75 * 1024 * 1024,
+            },
+        })
+    );
     app.disable('x-powered-by');
 
     addMainApi(app, databaseCmsServerConfig);

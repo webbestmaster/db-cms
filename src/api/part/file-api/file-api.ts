@@ -8,8 +8,8 @@ import {ApiResultType} from '../../api-type';
 import {fileApiUpload} from './file-api-module';
 
 export function addFileApi(app: Application, databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
-    app.get(apiRouteMap.file.upload, (request: Request, response: Response) => {
-        fileApiUpload(getDryRequest(databaseCmsServerConfig, request))
+    app.post(apiRouteMap.file.upload, (request: Request, response: Response) => {
+        fileApiUpload(getDryRequest(databaseCmsServerConfig, request), request)
             .then((result: ApiResultType<string>) => {
                 catchSuccess<string>(result, response);
             })

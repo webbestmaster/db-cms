@@ -17,7 +17,7 @@ export const apiRouteMap = {
         config: '/api/main/config', // done - get config
     },
     file: {
-        upload: '/api/file/upload', // in progress - get config
+        upload: '/api/file/upload', // done - post file
     },
     auth: {
         login: '/api/auth/login', // done - post

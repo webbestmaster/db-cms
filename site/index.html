@@ -23,7 +23,12 @@
 <button id="read-list">read list</button>
 <button id="update">update</button>
 <button id="delete">delete</button>
+<br>
+<br>
 <button id="get-config">get config</button>
+<br>
+<br>
+<input type="file" id="upload-file"/>
 
 <script>
     fetch('/api/auth/login', {
@@ -157,6 +162,31 @@
             })
                 .then(data => data.json())
                 .then(result => console.log('get config result:', result));
+        }, false);
+
+</script>
+
+<script>
+
+    document
+        .querySelector('#upload-file')
+        .addEventListener('change', (evt) => {
+            console.log(evt)
+
+            const [file] = evt.currentTarget.files;
+
+            const formData = new FormData();
+
+            // you can add file name as 3rd parameter
+            formData.append('file', file);
+
+            fetch('/api/file/upload', {
+                method: 'post',
+                credentials: 'include',
+                body: formData
+            })
+                .then(data => data.json())
+                .then(result => console.log('upload result:', result));
         }, false);
 
 </script>
