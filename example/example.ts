@@ -1,8 +1,14 @@
+/* global process */
+
+import path from 'path';
+
 import {Schema} from 'jsonschema';
 
 import {runDBCmsServer} from '../src/data-base-cms';
 import {DatabaseCmsServerConfigType, ModelConfigType} from '../src/data-base-cms-type';
 import {getRandomString} from '../src/util/string';
+
+const cwd = process.cwd();
 
 const mainDataBaseName = 'main-db';
 
@@ -47,6 +53,9 @@ const documentModel: ModelConfigType = {
 };
 
 const databaseCmsServerConfigType: DatabaseCmsServerConfigType = {
+    file: {
+        folder: path.join(cwd, 'file'),
+    },
     port: 3000,
     modelList: [userModel, documentModel],
     adminList: [

@@ -20,6 +20,9 @@ export type LoginDataType = {
 };
 
 export type DatabaseCmsServerConfigType = {
+    file: {
+        folder: string;
+    };
     port: number; // 3000
     modelList: Array<ModelConfigType>;
     adminList: Array<AdminType>;
