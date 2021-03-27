@@ -7,6 +7,7 @@ import {DatabaseCmsServerConfigType} from '../data-base-cms-type';
 
 import {addSessionApi} from './part/session-api/session-api';
 import {addDataBaseApi} from './part/data-base-api/data-base-api';
+import {addMainApi} from './part/main-api/main-api';
 
 export function addApiIntoApplication(app: Application, databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
     app.set('trust proxy', 1); // trust first proxy
@@ -17,6 +18,7 @@ export function addApiIntoApplication(app: Application, databaseCmsServerConfig:
     app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
     app.disable('x-powered-by');
 
+    addMainApi(app, databaseCmsServerConfig);
     addSessionApi(app, databaseCmsServerConfig);
     addDataBaseApi(app, databaseCmsServerConfig);
 }

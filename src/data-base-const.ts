@@ -14,7 +14,7 @@ export const serverConst = {
 
 export const apiRouteMap = {
     main: {
-        modelList: '/api/main/model-list', // not started - get model list
+        config: '/api/main/config', // done - get config
     },
     auth: {
         login: '/api/auth/login', // done - post

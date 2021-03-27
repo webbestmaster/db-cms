@@ -1,8 +1,8 @@
-/*
-import {CrudResponseType} from '../../../data-base-cms-type';
+import {DatabaseCmsServerConfigType} from '../../../data-base-cms-type';
 
-export const dataBaseErrorResult: CrudResponseType = {
-    data: null,
-    size: -1,
+export const defaultDatabaseCmsServerConfig: DatabaseCmsServerConfigType = {
+    port: -1,
+    modelList: [],
+    adminList: [],
+    database: {name: '', connectUrl: '', shallCommand: {backup: ''}},
 };
-*/
