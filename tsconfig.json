@@ -36,8 +36,11 @@
         "emitDecoratorMetadata": false,
     },
     "exclude": [
+        "./db",
+        "./db-dump",
+        "./site",
         "./dist",
-        "./tsc-check/",
+        "./tsc-check",
         "node_modules",
     ]
 }
