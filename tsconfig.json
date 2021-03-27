@@ -37,7 +37,6 @@
     },
     "exclude": [
         "./dist",
-        "./old",
         "./tsc-check/",
         "node_modules",
     ]
