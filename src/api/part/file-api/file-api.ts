@@ -1,0 +1,20 @@
+import {Application, Request, Response} from 'express';
+
+import {apiRouteMap} from '../../../data-base-const';
+import {DatabaseCmsServerConfigType} from '../../../data-base-cms-type';
+import {catchError, catchSuccess, getDryRequest} from '../../api-helper';
+import {ApiResultType} from '../../api-type';
+
+import {fileApiUpload} from './file-api-module';
+
+export function addFileApi(app: Application, databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
+    app.get(apiRouteMap.file.upload, (request: Request, response: Response) => {
+        fileApiUpload(getDryRequest(databaseCmsServerConfig, request))
+            .then((result: ApiResultType<string>) => {
+                catchSuccess<string>(result, response);
+            })
+            .catch((error: Error) => {
+                catchError(error, response);
+            });
+    });
+}
