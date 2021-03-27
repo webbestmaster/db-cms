@@ -30,7 +30,7 @@ export type DatabaseCmsServerConfigType = {
         name: string; // 'main-db'
         connectUrl: string; // 'mongodb://localhost:27001,localhost:27002,localhost:27003,localhost:27004?replicaSet=dbCmsReplica'
         shallCommand: {
-            backup: string;
+            update: string;
         };
     };
 };

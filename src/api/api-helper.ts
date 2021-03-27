@@ -99,5 +99,5 @@ function handleDataBaseChangeCallback(error: unknown, stdout: string | Buffer, s
 }
 
 export function handleDataBaseChange(databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
-    exec(databaseCmsServerConfig.database.shallCommand.backup, handleDataBaseChangeCallback);
+    exec(databaseCmsServerConfig.database.shallCommand.update, handleDataBaseChangeCallback);
 }

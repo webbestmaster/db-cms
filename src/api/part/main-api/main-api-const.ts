@@ -5,5 +5,5 @@ export const defaultDatabaseCmsServerConfig: DatabaseCmsServerConfigType = {
     port: -1,
     modelList: [],
     adminList: [],
-    database: {name: '', connectUrl: '', shallCommand: {backup: ''}},
+    database: {name: '', connectUrl: '', shallCommand: {update: ''}},
 };

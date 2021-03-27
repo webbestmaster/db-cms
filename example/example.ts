@@ -14,7 +14,7 @@ const mainDataBaseName = 'main-db';
 
 export const databaseDumpFolderName = 'db-dump';
 
-const backUpCommand: string = [
+const onUpdateCommand: string = [
     `mkdir -p ${databaseDumpFolderName};`,
     'mongodump',
     '--port=27001',
@@ -70,7 +70,7 @@ const databaseCmsServerConfigType: DatabaseCmsServerConfigType = {
         name: mainDataBaseName,
         connectUrl: 'mongodb://localhost:27001,localhost:27002,localhost:27003,localhost:27004?replicaSet=dbCmsReplica',
         shallCommand: {
-            backup: backUpCommand,
+            update: onUpdateCommand,
         },
     },
 };
