@@ -1,3 +1,7 @@
+/* global Buffer */
+
+import {exec} from 'child_process';
+
 import {Request, Response} from 'express';
 import {FilterQuery} from 'mongodb';
 
@@ -83,4 +87,17 @@ export function catchError(error: Error, response: Response): void {
     logError(error.message);
 
     response.status(500).end();
+}
+
+function handleDataBaseChangeCallback(error: unknown, stdout: string | Buffer, stderr: string | Buffer) {
+    if (error instanceof Error) {
+        logError(stderr.toString());
+        return;
+    }
+
+    log('[SUCCESS]: database.shallCommand.backup:', stdout.toString());
+}
+
+export function handleDataBaseChange(databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
+    exec(databaseCmsServerConfig.database.shallCommand.backup, handleDataBaseChangeCallback);
 }

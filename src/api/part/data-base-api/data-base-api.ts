@@ -2,7 +2,7 @@ import {Application, Request, Response} from 'express';
 
 import {apiRouteMap} from '../../../data-base-const';
 import {CrudResponseType, DatabaseCmsServerConfigType} from '../../../data-base-cms-type';
-import {catchError, catchSuccess, getDryRequest} from '../../api-helper';
+import {catchError, catchSuccess, getDryRequest, handleDataBaseChange} from '../../api-helper';
 import {ApiResultType} from '../../api-type';
 
 import {dataBaseCreate, dataBaseDelete, dataBaseRead, dataBaseReadList, dataBaseUpdate} from './data-base-api-module';
@@ -12,6 +12,7 @@ export function addDataBaseApi(app: Application, databaseCmsServerConfig: Databa
         dataBaseCreate(getDryRequest(databaseCmsServerConfig, request))
             .then((result: ApiResultType<CrudResponseType>) => {
                 catchSuccess<CrudResponseType>(result, response);
+                handleDataBaseChange(databaseCmsServerConfig);
             })
             .catch((error: Error) => {
                 catchError(error, response);
@@ -42,6 +43,7 @@ export function addDataBaseApi(app: Application, databaseCmsServerConfig: Databa
         dataBaseUpdate(getDryRequest(databaseCmsServerConfig, request))
             .then((result: ApiResultType<CrudResponseType>) => {
                 catchSuccess<CrudResponseType>(result, response);
+                handleDataBaseChange(databaseCmsServerConfig);
             })
             .catch((error: Error) => {
                 catchError(error, response);
@@ -52,6 +54,7 @@ export function addDataBaseApi(app: Application, databaseCmsServerConfig: Databa
         dataBaseDelete(getDryRequest(databaseCmsServerConfig, request))
             .then((result: ApiResultType<CrudResponseType>) => {
                 catchSuccess<CrudResponseType>(result, response);
+                handleDataBaseChange(databaseCmsServerConfig);
             })
             .catch((error: Error) => {
                 catchError(error, response);
