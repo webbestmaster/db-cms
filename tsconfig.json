@@ -1,12 +1,13 @@
 {
     "compilerOptions": {
-        "outDir": "./tsc-check/",
+        "outDir": "./dist/",
 
         "target": "es6",
         "jsx": "react",
         "module": "es6",
         "moduleResolution": "node",
 
+        "strict": true,
         "noImplicitAny": false,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
@@ -31,16 +32,19 @@
         "skipLibCheck": true,
         "checkJs": false,
         "allowJs": true,
-        "declaration": false,
+        "declaration": true,
         "experimentalDecorators": false,
-        "emitDecoratorMetadata": false,
+        "emitDecoratorMetadata": false
     },
+    "include": [
+        "src"
+    ],
     "exclude": [
         "./db",
         "./db-dump",
         "./site",
         "./dist",
         "./tsc-check",
-        "node_modules",
+        "node_modules"
     ]
 }
