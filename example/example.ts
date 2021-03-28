@@ -1,26 +1,10 @@
-/* global process */
-
-// import path from 'path';
-
 import {Schema} from 'jsonschema';
 
 import {runDBCmsServer} from '../src/data-base-cms';
 import {DatabaseCmsServerConfigType, ModelConfigType} from '../src/data-base-cms-type';
 import {getRandomString} from '../src/util/string';
 
-// const cwd = process.cwd();
-
 const mainDataBaseName = 'main-db';
-
-export const databaseDumpFolderName = 'db-dump';
-
-const onUpdateCommand: string = [
-    `mkdir -p ${databaseDumpFolderName};`,
-    'mongodump',
-    '--port=27001',
-    `--archive=${databaseDumpFolderName}/db-dump-\`date +%Y-%m-%d--%H-%M-%S\`.zip`,
-    `--db=${mainDataBaseName}`,
-].join(' ');
 
 const userModel: ModelConfigType = {
     name: 'User',
@@ -70,7 +54,8 @@ const databaseCmsServerConfigType: DatabaseCmsServerConfigType = {
         name: mainDataBaseName,
         connectUrl: 'mongodb://localhost:27001,localhost:27002,localhost:27003,localhost:27004?replicaSet=dbCmsReplica',
         shallCommand: {
-            update: onUpdateCommand,
+            start: './example/mongo-db-on-update.sh',
+            update: './example/mongo-db-on-update.sh',
         },
     },
 };

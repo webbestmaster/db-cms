@@ -98,6 +98,19 @@ function handleDataBaseChangeCallback(error: unknown, stdout: string | Buffer, s
     log('[SUCCESS]: database.shallCommand.backup:', stdout.toString());
 }
 
+function handleServerStartCallback(error: unknown, stdout: string | Buffer, stderr: string | Buffer) {
+    if (error instanceof Error) {
+        logError(stderr.toString());
+        return;
+    }
+
+    log('[SUCCESS]: database.shallCommand.start:', stdout.toString());
+}
+
+export function handleServerStart(databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
+    exec(databaseCmsServerConfig.database.shallCommand.start, handleServerStartCallback);
+}
+
 export function handleDataBaseChange(databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
     exec(databaseCmsServerConfig.database.shallCommand.update, handleDataBaseChangeCallback);
 }
