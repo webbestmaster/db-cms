@@ -13,7 +13,7 @@ import { getCollection } from '../../../util/data-base';
 import { dataBaseErrorResult } from './data-base-api-const';
 export function dataBaseCreate(dryRequest) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { urlParameters, body, modelConfig, databaseCmsServerConfig, admin } = dryRequest;
+        const { urlParameters, body, modelConfig, databaseCmsConfig, admin } = dryRequest;
         const { modelId } = urlParameters;
         if (!admin) {
             return {
@@ -34,7 +34,7 @@ export function dataBaseCreate(dryRequest) {
                 data: dataBaseErrorResult,
             };
         }
-        const collection = yield getCollection(databaseCmsServerConfig, modelId);
+        const collection = yield getCollection(databaseCmsConfig, modelId);
         // check for model already exists
         const instance = yield collection.findOne({ [keyId]: body[keyId] });
         if (instance) {
@@ -52,7 +52,7 @@ export function dataBaseCreate(dryRequest) {
 }
 export function dataBaseRead(dryRequest) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { databaseCmsServerConfig, modelConfig, urlParameters, admin } = dryRequest;
+        const { databaseCmsConfig, modelConfig, urlParameters, admin } = dryRequest;
         if (!admin) {
             return {
                 statusCode: 401,
@@ -67,7 +67,7 @@ export function dataBaseRead(dryRequest) {
         }
         const { keyId } = modelConfig;
         const { instanceId, modelId } = urlParameters;
-        const collection = yield getCollection(databaseCmsServerConfig, modelId);
+        const collection = yield getCollection(databaseCmsConfig, modelId);
         const instance = yield collection.findOne({ [keyId]: instanceId });
         if (!instance) {
             return {
@@ -83,7 +83,7 @@ export function dataBaseRead(dryRequest) {
 }
 export function dataBaseReadList(dryRequest) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { databaseCmsServerConfig, modelConfig, urlParameters, urlQueryParameters, admin } = dryRequest;
+        const { databaseCmsConfig, modelConfig, urlParameters, urlQueryParameters, admin } = dryRequest;
         if (!admin) {
             return {
                 statusCode: 401,
@@ -100,7 +100,7 @@ export function dataBaseReadList(dryRequest) {
         const { modelId, pageIndex, pageSize } = urlParameters;
         const pageIndexInt = Number.parseInt(pageIndex, 10);
         const pageSizeInt = Number.parseInt(pageSize, 10);
-        const collection = yield getCollection(databaseCmsServerConfig, modelId);
+        const collection = yield getCollection(databaseCmsConfig, modelId);
         const cursor = collection
             .find(find)
             .sort(sort)
@@ -118,7 +118,7 @@ export function dataBaseReadList(dryRequest) {
 }
 export function dataBaseUpdate(dryRequest) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { databaseCmsServerConfig, modelConfig, urlParameters, urlQueryParameters, admin, body } = dryRequest;
+        const { databaseCmsConfig, modelConfig, urlParameters, urlQueryParameters, admin, body } = dryRequest;
         if (!admin) {
             return {
                 statusCode: 401,
@@ -134,7 +134,7 @@ export function dataBaseUpdate(dryRequest) {
         const { keyId } = modelConfig;
         const { modelId } = urlParameters;
         const searchQuery = { [keyId]: body[keyId] };
-        const collection = yield getCollection(databaseCmsServerConfig, modelId);
+        const collection = yield getCollection(databaseCmsConfig, modelId);
         // check for model already exists
         const instance = yield collection.findOne(searchQuery);
         if (!instance) {
@@ -152,7 +152,7 @@ export function dataBaseUpdate(dryRequest) {
 }
 export function dataBaseDelete(dryRequest) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { databaseCmsServerConfig, modelConfig, urlParameters, urlQueryParameters, admin, body } = dryRequest;
+        const { databaseCmsConfig, modelConfig, urlParameters, urlQueryParameters, admin, body } = dryRequest;
         if (!admin) {
             return {
                 statusCode: 401,
@@ -168,7 +168,7 @@ export function dataBaseDelete(dryRequest) {
         const { keyId } = modelConfig;
         const { modelId, instanceId } = urlParameters;
         const searchQuery = { [keyId]: instanceId };
-        const collection = yield getCollection(databaseCmsServerConfig, modelId);
+        const collection = yield getCollection(databaseCmsConfig, modelId);
         // check for model already exists
         const instance = yield collection.findOne(searchQuery);
         if (!instance) {

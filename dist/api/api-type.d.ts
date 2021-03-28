@@ -1,5 +1,5 @@
 import { FilterQuery } from 'mongodb';
-import { AdminType, DatabaseCmsServerConfigType, DocumentType, ModelConfigType, SortDirectionType } from '../data-base-cms-type';
+import { AdminType, DatabaseCmsConfigType, DocumentType, ModelConfigType, SortDirectionType } from '../data-base-cms-type';
 import { SessionDataType } from './part/session-api/session-api-type';
 export declare type UrlParametersType = {
     modelId: string;
@@ -18,7 +18,7 @@ export declare type DryRequestType = {
     urlParameters: UrlParametersType;
     urlQueryParameters: UrlQueryParametersType;
     modelConfig: ModelConfigType | null;
-    databaseCmsServerConfig: DatabaseCmsServerConfigType;
+    databaseCmsConfig: DatabaseCmsConfigType;
 };
 export declare type ApiResultType<DataType> = {
     statusCode: 200 | 400 | 401 | 404;

@@ -1,7 +1,7 @@
 import {Schema} from 'jsonschema';
 
 import {runDBCmsServer} from '../src/data-base-cms';
-import {DatabaseCmsServerConfigType, ModelConfigType} from '../src/data-base-cms-type';
+import {DatabaseCmsConfigType, ModelConfigType} from '../src/data-base-cms-type';
 import {getRandomString} from '../src/util/string';
 
 const mainDataBaseName = 'main-db';
@@ -36,7 +36,7 @@ const documentModel: ModelConfigType = {
     keyId: 'documentId',
 };
 
-const databaseCmsServerConfigType: DatabaseCmsServerConfigType = {
+const databaseCmsServerConfigType: DatabaseCmsConfigType = {
     file: {
         folder: 'folder-for-files',
     },

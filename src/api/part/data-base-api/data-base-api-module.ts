@@ -8,7 +8,7 @@ import {getCollection} from '../../../util/data-base';
 import {dataBaseErrorResult} from './data-base-api-const';
 
 export async function dataBaseCreate(dryRequest: DryRequestType): Promise<ApiResultType<CrudResponseType>> {
-    const {urlParameters, body, modelConfig, databaseCmsServerConfig, admin} = dryRequest;
+    const {urlParameters, body, modelConfig, databaseCmsConfig, admin} = dryRequest;
     const {modelId} = urlParameters;
 
     if (!admin) {
@@ -34,7 +34,7 @@ export async function dataBaseCreate(dryRequest: DryRequestType): Promise<ApiRes
         };
     }
 
-    const collection: Collection<DocumentType> = await getCollection<DocumentType>(databaseCmsServerConfig, modelId);
+    const collection: Collection<DocumentType> = await getCollection<DocumentType>(databaseCmsConfig, modelId);
 
     // check for model already exists
     const instance: DocumentType | null = await collection.findOne({[keyId]: body[keyId]});
@@ -55,7 +55,7 @@ export async function dataBaseCreate(dryRequest: DryRequestType): Promise<ApiRes
 }
 
 export async function dataBaseRead(dryRequest: DryRequestType): Promise<ApiResultType<CrudResponseType>> {
-    const {databaseCmsServerConfig, modelConfig, urlParameters, admin} = dryRequest;
+    const {databaseCmsConfig, modelConfig, urlParameters, admin} = dryRequest;
 
     if (!admin) {
         return {
@@ -73,7 +73,7 @@ export async function dataBaseRead(dryRequest: DryRequestType): Promise<ApiResul
 
     const {keyId} = modelConfig;
     const {instanceId, modelId} = urlParameters;
-    const collection: Collection<DocumentType> = await getCollection<DocumentType>(databaseCmsServerConfig, modelId);
+    const collection: Collection<DocumentType> = await getCollection<DocumentType>(databaseCmsConfig, modelId);
     const instance: DocumentType | null = await collection.findOne({[keyId]: instanceId});
 
     if (!instance) {
@@ -90,7 +90,7 @@ export async function dataBaseRead(dryRequest: DryRequestType): Promise<ApiResul
 }
 
 export async function dataBaseReadList(dryRequest: DryRequestType): Promise<ApiResultType<CrudResponseType>> {
-    const {databaseCmsServerConfig, modelConfig, urlParameters, urlQueryParameters, admin} = dryRequest;
+    const {databaseCmsConfig, modelConfig, urlParameters, urlQueryParameters, admin} = dryRequest;
 
     if (!admin) {
         return {
@@ -111,7 +111,7 @@ export async function dataBaseReadList(dryRequest: DryRequestType): Promise<ApiR
     const pageIndexInt = Number.parseInt(pageIndex, 10);
     const pageSizeInt = Number.parseInt(pageSize, 10);
 
-    const collection: Collection<DocumentType> = await getCollection<DocumentType>(databaseCmsServerConfig, modelId);
+    const collection: Collection<DocumentType> = await getCollection<DocumentType>(databaseCmsConfig, modelId);
     const cursor = collection
         .find(find)
         .sort(sort)
@@ -130,7 +130,7 @@ export async function dataBaseReadList(dryRequest: DryRequestType): Promise<ApiR
 }
 
 export async function dataBaseUpdate(dryRequest: DryRequestType): Promise<ApiResultType<CrudResponseType>> {
-    const {databaseCmsServerConfig, modelConfig, urlParameters, urlQueryParameters, admin, body} = dryRequest;
+    const {databaseCmsConfig, modelConfig, urlParameters, urlQueryParameters, admin, body} = dryRequest;
 
     if (!admin) {
         return {
@@ -150,7 +150,7 @@ export async function dataBaseUpdate(dryRequest: DryRequestType): Promise<ApiRes
     const {modelId} = urlParameters;
     const searchQuery = {[keyId]: body[keyId]};
 
-    const collection: Collection<DocumentType> = await getCollection<DocumentType>(databaseCmsServerConfig, modelId);
+    const collection: Collection<DocumentType> = await getCollection<DocumentType>(databaseCmsConfig, modelId);
 
     // check for model already exists
     const instance: DocumentType | null = await collection.findOne(searchQuery);
@@ -171,7 +171,7 @@ export async function dataBaseUpdate(dryRequest: DryRequestType): Promise<ApiRes
 }
 
 export async function dataBaseDelete(dryRequest: DryRequestType): Promise<ApiResultType<CrudResponseType>> {
-    const {databaseCmsServerConfig, modelConfig, urlParameters, urlQueryParameters, admin, body} = dryRequest;
+    const {databaseCmsConfig, modelConfig, urlParameters, urlQueryParameters, admin, body} = dryRequest;
 
     if (!admin) {
         return {
@@ -191,7 +191,7 @@ export async function dataBaseDelete(dryRequest: DryRequestType): Promise<ApiRes
     const {modelId, instanceId} = urlParameters;
     const searchQuery = {[keyId]: instanceId};
 
-    const collection: Collection<DocumentType> = await getCollection<DocumentType>(databaseCmsServerConfig, modelId);
+    const collection: Collection<DocumentType> = await getCollection<DocumentType>(databaseCmsConfig, modelId);
 
     // check for model already exists
     const instance: DocumentType | null = await collection.findOne(searchQuery);

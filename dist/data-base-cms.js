@@ -2,12 +2,12 @@ import express from 'express';
 import { addApiIntoApplication } from './api/api';
 import { log } from './util/log';
 import { handleServerStart } from './api/api-helper';
-export function runDBCmsServer(databaseCmsServerConfig) {
+export function runDBCmsServer(databaseCmsConfig) {
     const app = express();
-    const { port } = databaseCmsServerConfig;
-    addApiIntoApplication(app, databaseCmsServerConfig);
+    const { port } = databaseCmsConfig;
+    addApiIntoApplication(app, databaseCmsConfig);
     app.listen(port, () => {
         log(`running at port: ${port}`);
     });
-    handleServerStart(databaseCmsServerConfig);
+    handleServerStart(databaseCmsConfig);
 }

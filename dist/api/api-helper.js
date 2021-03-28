@@ -30,12 +30,12 @@ function getUrlQueryParameters(request) {
     });
     return { sort, find };
 }
-export function getDryRequest(databaseCmsServerConfig, request) {
+export function getDryRequest(databaseCmsConfig, request) {
     const body = request.body || {};
     const sessionData = getSessionData(request);
-    const admin = getAdminBySession(databaseCmsServerConfig, sessionData) || getAdminByApiKey(databaseCmsServerConfig, request);
+    const admin = getAdminBySession(databaseCmsConfig, sessionData) || getAdminByApiKey(databaseCmsConfig, request);
     const urlParameters = getMapFromObject(request.params || {}, defaultUrlParameters);
-    const modelConfig = findInArray(databaseCmsServerConfig.modelList, {
+    const modelConfig = findInArray(databaseCmsConfig.modelList, {
         id: urlParameters.modelId,
     });
     const urlQueryParameters = getUrlQueryParameters(request);
@@ -46,7 +46,7 @@ export function getDryRequest(databaseCmsServerConfig, request) {
         modelConfig,
         urlParameters,
         urlQueryParameters,
-        databaseCmsServerConfig,
+        databaseCmsConfig,
     };
 }
 export function catchSuccess(result, response) {
@@ -70,9 +70,9 @@ function handleServerStartCallback(error, stdout, stderr) {
     }
     log('[SUCCESS]: database.shallCommand.start:', stdout.toString());
 }
-export function handleServerStart(databaseCmsServerConfig) {
-    exec(databaseCmsServerConfig.database.shallCommand.start, handleServerStartCallback);
+export function handleServerStart(databaseCmsConfig) {
+    exec(databaseCmsConfig.database.shallCommand.start, handleServerStartCallback);
 }
-export function handleDataBaseChange(databaseCmsServerConfig) {
-    exec(databaseCmsServerConfig.database.shallCommand.update, handleDataBaseChangeCallback);
+export function handleDataBaseChange(databaseCmsConfig) {
+    exec(databaseCmsConfig.database.shallCommand.update, handleDataBaseChangeCallback);
 }

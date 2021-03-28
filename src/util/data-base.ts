@@ -1,22 +1,22 @@
 import {Collection, Db, MongoClient} from 'mongodb';
 
-import {DatabaseCmsServerConfigType} from '../data-base-cms-type';
+import {DatabaseCmsConfigType} from '../data-base-cms-type';
 
 import {log} from './log';
 
 const getDataBaseCache: {[key: string]: Promise<Db> | void} = {};
 
 export function getCollection<ItemType>(
-    databaseCmsServerConfig: DatabaseCmsServerConfigType,
+    databaseCmsConfig: DatabaseCmsConfigType,
     collectionName: string
 ): Promise<Collection<ItemType>> {
-    return getDataBase(databaseCmsServerConfig).then(
+    return getDataBase(databaseCmsConfig).then(
         (dataBase: Db): Collection<ItemType> => dataBase.collection<ItemType>(collectionName)
     );
 }
 
-export function getDataBase(databaseCmsServerConfig: DatabaseCmsServerConfigType): Promise<Db> {
-    const {database} = databaseCmsServerConfig;
+export function getDataBase(databaseCmsConfig: DatabaseCmsConfigType): Promise<Db> {
+    const {database} = databaseCmsConfig;
     const {name, connectUrl} = database;
     const cachedDatabase: Promise<Db> | void = getDataBaseCache[name];
 

@@ -15,7 +15,7 @@ export declare type AdminType = {
 export declare type LoginDataType = {
     login: string;
 };
-export declare type DatabaseCmsServerConfigType = {
+export declare type DatabaseCmsConfigType = {
     file: {
         folder: string;
     };

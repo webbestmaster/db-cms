@@ -1,15 +1,15 @@
 import {Application, Request, Response} from 'express';
 
 import {apiRouteMap} from '../../../data-base-const';
-import {DatabaseCmsServerConfigType} from '../../../data-base-cms-type';
+import {DatabaseCmsConfigType} from '../../../data-base-cms-type';
 import {catchSuccess, getDryRequest} from '../../api-helper';
 
 import {dataMainApiConfig} from './main-api-module';
 
-export function addMainApi(app: Application, databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
+export function addMainApi(app: Application, databaseCmsConfig: DatabaseCmsConfigType): void {
     app.get(apiRouteMap.main.config, (request: Request, response: Response) => {
-        const mainConfig = dataMainApiConfig(getDryRequest(databaseCmsServerConfig, request));
+        const mainConfig = dataMainApiConfig(getDryRequest(databaseCmsConfig, request));
 
-        catchSuccess<DatabaseCmsServerConfigType>(mainConfig, response);
+        catchSuccess<DatabaseCmsConfigType>(mainConfig, response);
     });
 }

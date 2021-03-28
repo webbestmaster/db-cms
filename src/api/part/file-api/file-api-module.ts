@@ -5,7 +5,7 @@ import {Application, Request, Response} from 'express';
 import {ApiResultType, DryRequestType} from '../../api-type';
 
 export async function fileApiUpload(dryRequest: DryRequestType, request: Request): Promise<ApiResultType<string>> {
-    const {admin, databaseCmsServerConfig} = dryRequest;
+    const {admin, databaseCmsConfig} = dryRequest;
 
     if (!admin) {
         return {
@@ -22,7 +22,7 @@ export async function fileApiUpload(dryRequest: DryRequestType, request: Request
     const fileName = `${md5}-${name}`;
 
     // @ts-ignore
-    await file.mv(path.join(databaseCmsServerConfig.file.folder, fileName));
+    await file.mv(path.join(databaseCmsConfig.file.folder, fileName));
 
     return {
         statusCode: 200,

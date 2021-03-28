@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
 
-import {AdminType, DatabaseCmsServerConfigType} from '../../../data-base-cms-type';
+import {AdminType, DatabaseCmsConfigType} from '../../../data-base-cms-type';
 import {serverConst} from '../../../data-base-const';
 import {decrypt, encrypt, getRandomString, parseCookie} from '../../../util/string';
 import {log} from '../../../util/log';
@@ -53,7 +53,7 @@ export function getSessionData(request: Request): SessionDataType | null {
 
 // eslint-disable-next-line complexity
 export function getAdminBySession(
-    databaseCmsServerConfig: DatabaseCmsServerConfigType,
+    databaseCmsConfig: DatabaseCmsConfigType,
     sessionData: SessionDataType | null
 ): AdminType | null {
     if (!sessionData) {
@@ -61,7 +61,7 @@ export function getAdminBySession(
     }
 
     const {login, hash} = sessionData;
-    const {adminList} = databaseCmsServerConfig;
+    const {adminList} = databaseCmsConfig;
 
     // eslint-disable-next-line no-loops/no-loops
     for (const admin of adminList) {
@@ -74,17 +74,14 @@ export function getAdminBySession(
 }
 
 // eslint-disable-next-line complexity
-export function getAdminByApiKey(
-    databaseCmsServerConfig: DatabaseCmsServerConfigType,
-    request: Request
-): AdminType | null {
+export function getAdminByApiKey(databaseCmsConfig: DatabaseCmsConfigType, request: Request): AdminType | null {
     const apiKey = String(request.headers[serverConst.api.apiHeaderKey] || '');
 
     if (apiKey.trim() === '') {
         return null;
     }
 
-    const {adminList} = databaseCmsServerConfig;
+    const {adminList} = databaseCmsConfig;
 
     // eslint-disable-next-line no-loops/no-loops
     for (const admin of adminList) {

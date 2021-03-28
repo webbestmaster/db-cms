@@ -19,7 +19,7 @@ export type LoginDataType = {
     login: string;
 };
 
-export type DatabaseCmsServerConfigType = {
+export type DatabaseCmsConfigType = {
     file: {
         folder: string;
     };

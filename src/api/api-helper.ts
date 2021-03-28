@@ -8,7 +8,7 @@ import {FilterQuery} from 'mongodb';
 import {log, logError} from '../util/log';
 import {
     AdminType,
-    DatabaseCmsServerConfigType,
+    DatabaseCmsConfigType,
     DocumentType,
     ModelConfigType,
     SortDirectionType,
@@ -54,16 +54,16 @@ function getUrlQueryParameters(request: Request): UrlQueryParametersType {
     return {sort, find};
 }
 
-export function getDryRequest(databaseCmsServerConfig: DatabaseCmsServerConfigType, request: Request): DryRequestType {
+export function getDryRequest(databaseCmsConfig: DatabaseCmsConfigType, request: Request): DryRequestType {
     const body: DocumentType = request.body || {};
     const sessionData: SessionDataType | null = getSessionData(request);
     const admin: AdminType | null
-        = getAdminBySession(databaseCmsServerConfig, sessionData) || getAdminByApiKey(databaseCmsServerConfig, request);
+        = getAdminBySession(databaseCmsConfig, sessionData) || getAdminByApiKey(databaseCmsConfig, request);
     const urlParameters: UrlParametersType = getMapFromObject<UrlParametersType>(
         request.params || {},
         defaultUrlParameters
     );
-    const modelConfig: ModelConfigType | null = findInArray<ModelConfigType>(databaseCmsServerConfig.modelList, {
+    const modelConfig: ModelConfigType | null = findInArray<ModelConfigType>(databaseCmsConfig.modelList, {
         id: urlParameters.modelId,
     });
     const urlQueryParameters: UrlQueryParametersType = getUrlQueryParameters(request);
@@ -75,7 +75,7 @@ export function getDryRequest(databaseCmsServerConfig: DatabaseCmsServerConfigTy
         modelConfig,
         urlParameters,
         urlQueryParameters,
-        databaseCmsServerConfig,
+        databaseCmsConfig,
     };
 }
 
@@ -107,10 +107,10 @@ function handleServerStartCallback(error: unknown, stdout: string | Buffer, stde
     log('[SUCCESS]: database.shallCommand.start:', stdout.toString());
 }
 
-export function handleServerStart(databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
-    exec(databaseCmsServerConfig.database.shallCommand.start, handleServerStartCallback);
+export function handleServerStart(databaseCmsConfig: DatabaseCmsConfigType): void {
+    exec(databaseCmsConfig.database.shallCommand.start, handleServerStartCallback);
 }
 
-export function handleDataBaseChange(databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
-    exec(databaseCmsServerConfig.database.shallCommand.update, handleDataBaseChangeCallback);
+export function handleDataBaseChange(databaseCmsConfig: DatabaseCmsConfigType): void {
+    exec(databaseCmsConfig.database.shallCommand.update, handleDataBaseChangeCallback);
 }

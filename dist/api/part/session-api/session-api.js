@@ -1,9 +1,9 @@
 import { apiRouteMap } from '../../../data-base-const';
 import { catchError, catchSuccess, getDryRequest } from '../../api-helper';
 import { authLogin, authLogout, authLogoutAll } from './session-api-module';
-export function addSessionApi(app, databaseCmsServerConfig) {
+export function addSessionApi(app, databaseCmsConfig) {
     app.post(apiRouteMap.auth.login, (request, response) => {
-        authLogin(getDryRequest(databaseCmsServerConfig, request), response)
+        authLogin(getDryRequest(databaseCmsConfig, request), response)
             .then((result) => {
             catchSuccess(result, response);
         })
@@ -21,7 +21,7 @@ export function addSessionApi(app, databaseCmsServerConfig) {
         });
     });
     app.get(apiRouteMap.auth.logoutAll, (request, response) => {
-        authLogoutAll(getDryRequest(databaseCmsServerConfig, request), response)
+        authLogoutAll(getDryRequest(databaseCmsConfig, request), response)
             .then((result) => {
             catchSuccess(result, response);
         })

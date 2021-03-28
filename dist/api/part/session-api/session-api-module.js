@@ -12,9 +12,9 @@ import { getRandomString } from '../../../util/string';
 import { removeSessionCookie, setSessionCookie } from './session-api-helper';
 export function authLogin(dryRequest, response) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { body, databaseCmsServerConfig } = dryRequest;
+        const { body, databaseCmsConfig } = dryRequest;
         const { login, password } = body;
-        const admin = findInArray(databaseCmsServerConfig.adminList, { login, password });
+        const admin = findInArray(databaseCmsConfig.adminList, { login, password });
         if (!admin) {
             return {
                 statusCode: 404,

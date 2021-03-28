@@ -36,12 +36,12 @@ export function getSessionData(request) {
     return null;
 }
 // eslint-disable-next-line complexity
-export function getAdminBySession(databaseCmsServerConfig, sessionData) {
+export function getAdminBySession(databaseCmsConfig, sessionData) {
     if (!sessionData) {
         return null;
     }
     const { login, hash } = sessionData;
-    const { adminList } = databaseCmsServerConfig;
+    const { adminList } = databaseCmsConfig;
     // eslint-disable-next-line no-loops/no-loops
     for (const admin of adminList) {
         if (admin.hash === hash && admin.login === login) {
@@ -51,12 +51,12 @@ export function getAdminBySession(databaseCmsServerConfig, sessionData) {
     return null;
 }
 // eslint-disable-next-line complexity
-export function getAdminByApiKey(databaseCmsServerConfig, request) {
+export function getAdminByApiKey(databaseCmsConfig, request) {
     const apiKey = String(request.headers[serverConst.api.apiHeaderKey] || '');
     if (apiKey.trim() === '') {
         return null;
     }
-    const { adminList } = databaseCmsServerConfig;
+    const { adminList } = databaseCmsConfig;
     // eslint-disable-next-line no-loops/no-loops
     for (const admin of adminList) {
         if (admin.apiKey === apiKey) {

@@ -11,10 +11,10 @@ export async function authLogin(
     dryRequest: DryRequestType,
     response: Response
 ): Promise<ApiResultType<AuthResponseType>> {
-    const {body, databaseCmsServerConfig} = dryRequest;
+    const {body, databaseCmsConfig} = dryRequest;
     const {login, password} = body;
 
-    const admin = findInArray<AdminType>(databaseCmsServerConfig.adminList, {login, password});
+    const admin = findInArray<AdminType>(databaseCmsConfig.adminList, {login, password});
 
     if (!admin) {
         return {

@@ -1,20 +1,23 @@
 import express from 'express';
+import {Schema} from 'jsonschema';
 
 import {addApiIntoApplication} from './api/api';
-import {DatabaseCmsServerConfigType} from './data-base-cms-type';
+import {AdminType, DatabaseCmsConfigType, ModelConfigType} from './data-base-cms-type';
 import {log} from './util/log';
 import {handleServerStart} from './api/api-helper';
 
-export function runDBCmsServer(databaseCmsServerConfig: DatabaseCmsServerConfigType): void {
+export function runDBCmsServer(databaseCmsConfig: DatabaseCmsConfigType): void {
     const app = express();
 
-    const {port} = databaseCmsServerConfig;
+    const {port} = databaseCmsConfig;
 
-    addApiIntoApplication(app, databaseCmsServerConfig);
+    addApiIntoApplication(app, databaseCmsConfig);
 
     app.listen(port, (): void => {
         log(`running at port: ${port}`);
     });
 
-    handleServerStart(databaseCmsServerConfig);
+    handleServerStart(databaseCmsConfig);
 }
+
+export {DatabaseCmsConfigType, ModelConfigType, AdminType, Schema};

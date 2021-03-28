@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import path from 'path';
 export function fileApiUpload(dryRequest, request) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { admin, databaseCmsServerConfig } = dryRequest;
+        const { admin, databaseCmsConfig } = dryRequest;
         if (!admin) {
             return {
                 statusCode: 401,
@@ -23,7 +23,7 @@ export function fileApiUpload(dryRequest, request) {
         const { md5, name } = file;
         const fileName = `${md5}-${name}`;
         // @ts-ignore
-        yield file.mv(path.join(databaseCmsServerConfig.file.folder, fileName));
+        yield file.mv(path.join(databaseCmsConfig.file.folder, fileName));
         return {
             statusCode: 200,
             data: fileName,

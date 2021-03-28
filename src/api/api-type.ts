@@ -2,7 +2,7 @@ import {FilterQuery} from 'mongodb';
 
 import {
     AdminType,
-    DatabaseCmsServerConfigType,
+    DatabaseCmsConfigType,
     DocumentType,
     ModelConfigType,
     SortDirectionType,
@@ -29,7 +29,7 @@ export type DryRequestType = {
     urlParameters: UrlParametersType;
     urlQueryParameters: UrlQueryParametersType;
     modelConfig: ModelConfigType | null;
-    databaseCmsServerConfig: DatabaseCmsServerConfigType;
+    databaseCmsConfig: DatabaseCmsConfigType;
 };
 
 export type ApiResultType<DataType> = {

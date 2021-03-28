@@ -1,10 +1,10 @@
 import {ApiResultType, DryRequestType} from '../../api-type';
-import {DatabaseCmsServerConfigType} from '../../../data-base-cms-type';
+import {DatabaseCmsConfigType} from '../../../data-base-cms-type';
 
 import {defaultDatabaseCmsServerConfig} from './main-api-const';
 
-export function dataMainApiConfig(dryRequest: DryRequestType): ApiResultType<DatabaseCmsServerConfigType> {
-    const {databaseCmsServerConfig, admin} = dryRequest;
+export function dataMainApiConfig(dryRequest: DryRequestType): ApiResultType<DatabaseCmsConfigType> {
+    const {databaseCmsConfig, admin} = dryRequest;
 
     if (!admin) {
         return {
@@ -13,8 +13,8 @@ export function dataMainApiConfig(dryRequest: DryRequestType): ApiResultType<Dat
         };
     }
 
-    const cleanDatabaseCmsServerConfig: DatabaseCmsServerConfigType = {
-        ...databaseCmsServerConfig,
+    const cleanDatabaseCmsServerConfig: DatabaseCmsConfigType = {
+        ...databaseCmsConfig,
         adminList: [],
     };
 

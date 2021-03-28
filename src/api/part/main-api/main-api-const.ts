@@ -1,6 +1,6 @@
-import {DatabaseCmsServerConfigType} from '../../../data-base-cms-type';
+import {DatabaseCmsConfigType} from '../../../data-base-cms-type';
 
-export const defaultDatabaseCmsServerConfig: DatabaseCmsServerConfigType = {
+export const defaultDatabaseCmsServerConfig: DatabaseCmsConfigType = {
     file: {folder: ''},
     port: -1,
     modelList: [],

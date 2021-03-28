@@ -1,2 +1,2 @@
-import { DatabaseCmsServerConfigType } from '../../../data-base-cms-type';
-export declare const defaultDatabaseCmsServerConfig: DatabaseCmsServerConfigType;
+import { DatabaseCmsConfigType } from '../../../data-base-cms-type';
+export declare const defaultDatabaseCmsServerConfig: DatabaseCmsConfigType;
