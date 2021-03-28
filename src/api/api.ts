@@ -18,14 +18,7 @@ export function addApiIntoApplication(app: Application, databaseCmsServerConfig:
     app.use(compression({level: 9}));
     app.use(bodyParser.json({limit: '10mb'}));
     app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
-    app.use(
-        fileUpload({
-            limits: {
-                // 75 mb
-                fileSize: 75 * 1024 * 1024,
-            },
-        })
-    );
+    app.use(fileUpload());
     app.disable('x-powered-by');
 
     addMainApi(app, databaseCmsServerConfig);
