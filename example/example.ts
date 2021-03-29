@@ -36,7 +36,7 @@ const documentModel: ModelConfigType = {
     keyId: 'documentId',
 };
 
-const databaseCmsServerConfigType: DatabaseCmsConfigType = {
+const databaseCmsServerConfig: DatabaseCmsConfigType = {
     file: {
         folder: 'folder-for-files',
     },
@@ -60,4 +60,4 @@ const databaseCmsServerConfigType: DatabaseCmsConfigType = {
     },
 };
 
-runDBCmsServer(databaseCmsServerConfigType);
+runDBCmsServer(databaseCmsServerConfig);

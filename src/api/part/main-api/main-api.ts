@@ -1,3 +1,4 @@
+/*
 import {Application, Request, Response} from 'express';
 
 import {apiRouteMap} from '../../../data-base-const';
@@ -13,3 +14,4 @@ export function addMainApi(app: Application, databaseCmsConfig: DatabaseCmsConfi
         catchSuccess<DatabaseCmsConfigType>(mainConfig, response);
     });
 }
+*/

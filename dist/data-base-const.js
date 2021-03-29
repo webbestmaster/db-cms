@@ -10,9 +10,9 @@ export const serverConst = {
     },
 };
 export const apiRouteMap = {
-    main: {
-        config: '/api/main/config', // done - get config
-    },
+    // main: {
+    //     config: '/api/main/config', // done - get config
+    // },
     file: {
         upload: '/api/file/upload', // done - post file
     },

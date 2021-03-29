@@ -1,6 +1,6 @@
 {
   "name": "db-cms",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "db cms",
   "main": "dist/data-base-cms.js",
   "types": "dist/data-base-cms.d.ts",
@@ -41,14 +41,14 @@
     "mongodb": "^3.6.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.13",
+    "@babel/core": "^7.13.14",
     "@babel/node": "^7.13.13",
     "@babel/plugin-transform-runtime": "^7.13.10",
     "@babel/plugin-transform-strict-mode": "^7.12.13",
     "@babel/preset-env": "^7.13.12",
     "@babel/preset-typescript": "^7.13.0",
-    "@typescript-eslint/eslint-plugin": "^4.19.0",
-    "@typescript-eslint/parser": "^4.19.0",
+    "@typescript-eslint/eslint-plugin": "^4.20.0",
+    "@typescript-eslint/parser": "^4.20.0",
     "cross-env": "^7.0.3",
     "eslint": "^7.23.0",
     "eslint-import-resolver-typescript": "^2.4.0",

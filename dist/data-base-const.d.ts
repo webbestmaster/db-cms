@@ -8,9 +8,6 @@ export declare const serverConst: {
     };
 };
 export declare const apiRouteMap: {
-    main: {
-        config: string;
-    };
     file: {
         upload: string;
     };
