@@ -1,10 +1,13 @@
-import { defaultDatabaseCmsServerConfig } from './main-api-const';
-export function dataMainApiConfig(dryRequest) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.dataMainApiConfig = void 0;
+const main_api_const_1 = require("./main-api-const");
+function dataMainApiConfig(dryRequest) {
     const { databaseCmsConfig, admin } = dryRequest;
     if (!admin) {
         return {
             statusCode: 401,
-            data: defaultDatabaseCmsServerConfig,
+            data: main_api_const_1.defaultDatabaseCmsServerConfig,
         };
     }
     const cleanDatabaseCmsServerConfig = Object.assign(Object.assign({}, databaseCmsConfig), { adminList: [] });
@@ -13,3 +16,4 @@ export function dataMainApiConfig(dryRequest) {
         data: cleanDatabaseCmsServerConfig,
     };
 }
+exports.dataMainApiConfig = dataMainApiConfig;

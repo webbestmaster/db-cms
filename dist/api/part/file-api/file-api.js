@@ -1,14 +1,18 @@
-import { apiRouteMap } from '../../../data-base-const';
-import { catchError, catchSuccess, getDryRequest } from '../../api-helper';
-import { fileApiUpload } from './file-api-module';
-export function addFileApi(app, databaseCmsConfig) {
-    app.post(apiRouteMap.file.upload, (request, response) => {
-        fileApiUpload(getDryRequest(databaseCmsConfig, request), request)
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.addFileApi = void 0;
+const data_base_const_1 = require("../../../data-base-const");
+const api_helper_1 = require("../../api-helper");
+const file_api_module_1 = require("./file-api-module");
+function addFileApi(app, databaseCmsConfig) {
+    app.post(data_base_const_1.apiRouteMap.file.upload, (request, response) => {
+        file_api_module_1.fileApiUpload(api_helper_1.getDryRequest(databaseCmsConfig, request), request)
             .then((result) => {
-            catchSuccess(result, response);
+            api_helper_1.catchSuccess(result, response);
         })
             .catch((error) => {
-            catchError(error, response);
+            api_helper_1.catchError(error, response);
         });
     });
 }
+exports.addFileApi = addFileApi;

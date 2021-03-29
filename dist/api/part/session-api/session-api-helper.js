@@ -1,27 +1,32 @@
-import { serverConst } from '../../../data-base-const';
-import { decrypt, encrypt, getRandomString, parseCookie } from '../../../util/string';
-import { log } from '../../../util/log';
-export function setSessionCookie(response, admin) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getAdminByApiKey = exports.getAdminBySession = exports.getSessionData = exports.removeSessionCookie = exports.setSessionCookie = void 0;
+const data_base_const_1 = require("../../../data-base-const");
+const string_1 = require("../../../util/string");
+const log_1 = require("../../../util/log");
+function setSessionCookie(response, admin) {
     const sessionData = {
         date: Date.now(),
-        id: getRandomString(),
+        id: string_1.getRandomString(),
         login: admin.login,
         hash: admin.hash,
     };
-    response.cookie(serverConst.session.sessionKey, encrypt(JSON.stringify(sessionData)), {
+    response.cookie(data_base_const_1.serverConst.session.sessionKey, string_1.encrypt(JSON.stringify(sessionData)), {
         httpOnly: true,
         secure: true,
     });
 }
-export function removeSessionCookie(response) {
-    response.cookie(serverConst.session.sessionKey, '', { httpOnly: true, secure: true });
+exports.setSessionCookie = setSessionCookie;
+function removeSessionCookie(response) {
+    response.cookie(data_base_const_1.serverConst.session.sessionKey, '', { httpOnly: true, secure: true });
 }
+exports.removeSessionCookie = removeSessionCookie;
 // eslint-disable-next-line complexity
-export function getSessionData(request) {
-    const parsedCookie = parseCookie(String(request.headers.cookie || ''));
-    const sessionCookie = parsedCookie[serverConst.session.sessionKey] || '';
+function getSessionData(request) {
+    const parsedCookie = string_1.parseCookie(String(request.headers.cookie || ''));
+    const sessionCookie = parsedCookie[data_base_const_1.serverConst.session.sessionKey] || '';
     try {
-        const sessionData = JSON.parse(decrypt(sessionCookie)) || {};
+        const sessionData = JSON.parse(string_1.decrypt(sessionCookie)) || {};
         const { date, id, login, hash } = sessionData;
         if (typeof date === 'number'
             && typeof id === 'string'
@@ -31,12 +36,13 @@ export function getSessionData(request) {
         }
     }
     catch (_a) {
-        log('getSessionData can not parse session');
+        log_1.log('getSessionData can not parse session');
     }
     return null;
 }
+exports.getSessionData = getSessionData;
 // eslint-disable-next-line complexity
-export function getAdminBySession(databaseCmsConfig, sessionData) {
+function getAdminBySession(databaseCmsConfig, sessionData) {
     if (!sessionData) {
         return null;
     }
@@ -50,9 +56,10 @@ export function getAdminBySession(databaseCmsConfig, sessionData) {
     }
     return null;
 }
+exports.getAdminBySession = getAdminBySession;
 // eslint-disable-next-line complexity
-export function getAdminByApiKey(databaseCmsConfig, request) {
-    const apiKey = String(request.headers[serverConst.api.apiHeaderKey] || '');
+function getAdminByApiKey(databaseCmsConfig, request) {
+    const apiKey = String(request.headers[data_base_const_1.serverConst.api.apiHeaderKey] || '');
     if (apiKey.trim() === '') {
         return null;
     }
@@ -65,3 +72,4 @@ export function getAdminByApiKey(databaseCmsConfig, request) {
     }
     return null;
 }
+exports.getAdminByApiKey = getAdminByApiKey;

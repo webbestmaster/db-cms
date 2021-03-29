@@ -1,32 +1,36 @@
-import { apiRouteMap } from '../../../data-base-const';
-import { catchError, catchSuccess, getDryRequest } from '../../api-helper';
-import { authLogin, authLogout, authLogoutAll } from './session-api-module';
-export function addSessionApi(app, databaseCmsConfig) {
-    app.post(apiRouteMap.auth.login, (request, response) => {
-        authLogin(getDryRequest(databaseCmsConfig, request), response)
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.addSessionApi = void 0;
+const data_base_const_1 = require("../../../data-base-const");
+const api_helper_1 = require("../../api-helper");
+const session_api_module_1 = require("./session-api-module");
+function addSessionApi(app, databaseCmsConfig) {
+    app.post(data_base_const_1.apiRouteMap.auth.login, (request, response) => {
+        session_api_module_1.authLogin(api_helper_1.getDryRequest(databaseCmsConfig, request), response)
             .then((result) => {
-            catchSuccess(result, response);
+            api_helper_1.catchSuccess(result, response);
         })
             .catch((error) => {
-            catchError(error, response);
+            api_helper_1.catchError(error, response);
         });
     });
-    app.get(apiRouteMap.auth.logout, (request, response) => {
-        authLogout(response)
+    app.get(data_base_const_1.apiRouteMap.auth.logout, (request, response) => {
+        session_api_module_1.authLogout(response)
             .then((result) => {
-            catchSuccess(result, response);
+            api_helper_1.catchSuccess(result, response);
         })
             .catch((error) => {
-            catchError(error, response);
+            api_helper_1.catchError(error, response);
         });
     });
-    app.get(apiRouteMap.auth.logoutAll, (request, response) => {
-        authLogoutAll(getDryRequest(databaseCmsConfig, request), response)
+    app.get(data_base_const_1.apiRouteMap.auth.logoutAll, (request, response) => {
+        session_api_module_1.authLogoutAll(api_helper_1.getDryRequest(databaseCmsConfig, request), response)
             .then((result) => {
-            catchSuccess(result, response);
+            api_helper_1.catchSuccess(result, response);
         })
             .catch((error) => {
-            catchError(error, response);
+            api_helper_1.catchError(error, response);
         });
     });
 }
+exports.addSessionApi = addSessionApi;

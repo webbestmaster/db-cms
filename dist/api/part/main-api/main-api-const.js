@@ -1,4 +1,7 @@
-export const defaultDatabaseCmsServerConfig = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.defaultDatabaseCmsServerConfig = void 0;
+exports.defaultDatabaseCmsServerConfig = {
     file: { folder: '' },
     port: -1,
     modelList: [],

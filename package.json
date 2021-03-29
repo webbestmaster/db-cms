@@ -1,6 +1,6 @@
 {
   "name": "db-cms",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "db cms",
   "main": "dist/data-base-cms.js",
   "types": "dist/data-base-cms.d.ts",

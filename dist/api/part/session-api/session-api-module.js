@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,21 +8,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { findInArray } from '../../../util/array';
-import { getRandomString } from '../../../util/string';
-import { removeSessionCookie, setSessionCookie } from './session-api-helper';
-export function authLogin(dryRequest, response) {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.authLogoutAll = exports.authLogout = exports.authLogin = void 0;
+const array_1 = require("../../../util/array");
+const string_1 = require("../../../util/string");
+const session_api_helper_1 = require("./session-api-helper");
+function authLogin(dryRequest, response) {
     return __awaiter(this, void 0, void 0, function* () {
         const { body, databaseCmsConfig } = dryRequest;
         const { login, password } = body;
-        const admin = findInArray(databaseCmsConfig.adminList, { login, password });
+        const admin = array_1.findInArray(databaseCmsConfig.adminList, { login, password });
         if (!admin) {
             return {
                 statusCode: 404,
                 data: { user: null },
             };
         }
-        setSessionCookie(response, admin);
+        session_api_helper_1.setSessionCookie(response, admin);
         return {
             statusCode: 200,
             data: {
@@ -30,16 +33,18 @@ export function authLogin(dryRequest, response) {
         };
     });
 }
-export function authLogout(response) {
+exports.authLogin = authLogin;
+function authLogout(response) {
     return __awaiter(this, void 0, void 0, function* () {
-        removeSessionCookie(response);
+        session_api_helper_1.removeSessionCookie(response);
         return {
             statusCode: 200,
             data: { user: null },
         };
     });
 }
-export function authLogoutAll(dryRequest, response) {
+exports.authLogout = authLogout;
+function authLogoutAll(dryRequest, response) {
     return __awaiter(this, void 0, void 0, function* () {
         const { admin } = dryRequest;
         if (!admin) {
@@ -48,11 +53,12 @@ export function authLogoutAll(dryRequest, response) {
                 data: { user: null },
             };
         }
-        removeSessionCookie(response);
-        admin.hash = getRandomString();
+        session_api_helper_1.removeSessionCookie(response);
+        admin.hash = string_1.getRandomString();
         return {
             statusCode: 200,
             data: { user: null },
         };
     });
 }
+exports.authLogoutAll = authLogoutAll;

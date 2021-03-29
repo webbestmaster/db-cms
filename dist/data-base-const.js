@@ -1,7 +1,13 @@
+"use strict";
 // @flow
-import crypto from 'crypto';
-export const serverConst = {
-    secretKey: crypto.randomBytes(16).toString('hex'),
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.apiRouteMap = exports.serverConst = void 0;
+const crypto_1 = __importDefault(require("crypto"));
+exports.serverConst = {
+    secretKey: crypto_1.default.randomBytes(16).toString('hex'),
     session: {
         sessionKey: 'session-id',
     },
@@ -9,7 +15,7 @@ export const serverConst = {
         apiHeaderKey: 'x-api-header-key',
     },
 };
-export const apiRouteMap = {
+exports.apiRouteMap = {
     // main: {
     //     config: '/api/main/config', // done - get config
     // },

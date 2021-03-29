@@ -1,53 +1,57 @@
-import { apiRouteMap } from '../../../data-base-const';
-import { catchError, catchSuccess, getDryRequest, handleDataBaseChange } from '../../api-helper';
-import { dataBaseCreate, dataBaseDelete, dataBaseRead, dataBaseReadList, dataBaseUpdate } from './data-base-api-module';
-export function addDataBaseApi(app, databaseCmsConfig) {
-    app.post(apiRouteMap.crud.create, (request, response) => {
-        dataBaseCreate(getDryRequest(databaseCmsConfig, request))
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.addDataBaseApi = void 0;
+const data_base_const_1 = require("../../../data-base-const");
+const api_helper_1 = require("../../api-helper");
+const data_base_api_module_1 = require("./data-base-api-module");
+function addDataBaseApi(app, databaseCmsConfig) {
+    app.post(data_base_const_1.apiRouteMap.crud.create, (request, response) => {
+        data_base_api_module_1.dataBaseCreate(api_helper_1.getDryRequest(databaseCmsConfig, request))
             .then((result) => {
-            catchSuccess(result, response);
-            handleDataBaseChange(databaseCmsConfig);
+            api_helper_1.catchSuccess(result, response);
+            api_helper_1.handleDataBaseChange(databaseCmsConfig);
         })
             .catch((error) => {
-            catchError(error, response);
+            api_helper_1.catchError(error, response);
         });
     });
-    app.get(apiRouteMap.crud.read, (request, response) => {
-        dataBaseRead(getDryRequest(databaseCmsConfig, request))
+    app.get(data_base_const_1.apiRouteMap.crud.read, (request, response) => {
+        data_base_api_module_1.dataBaseRead(api_helper_1.getDryRequest(databaseCmsConfig, request))
             .then((result) => {
-            catchSuccess(result, response);
+            api_helper_1.catchSuccess(result, response);
         })
             .catch((error) => {
-            catchError(error, response);
+            api_helper_1.catchError(error, response);
         });
     });
-    app.get(apiRouteMap.crud.readList, (request, response) => {
-        dataBaseReadList(getDryRequest(databaseCmsConfig, request))
+    app.get(data_base_const_1.apiRouteMap.crud.readList, (request, response) => {
+        data_base_api_module_1.dataBaseReadList(api_helper_1.getDryRequest(databaseCmsConfig, request))
             .then((result) => {
-            catchSuccess(result, response);
+            api_helper_1.catchSuccess(result, response);
         })
             .catch((error) => {
-            catchError(error, response);
+            api_helper_1.catchError(error, response);
         });
     });
-    app.post(apiRouteMap.crud.update, (request, response) => {
-        dataBaseUpdate(getDryRequest(databaseCmsConfig, request))
+    app.post(data_base_const_1.apiRouteMap.crud.update, (request, response) => {
+        data_base_api_module_1.dataBaseUpdate(api_helper_1.getDryRequest(databaseCmsConfig, request))
             .then((result) => {
-            catchSuccess(result, response);
-            handleDataBaseChange(databaseCmsConfig);
+            api_helper_1.catchSuccess(result, response);
+            api_helper_1.handleDataBaseChange(databaseCmsConfig);
         })
             .catch((error) => {
-            catchError(error, response);
+            api_helper_1.catchError(error, response);
         });
     });
-    app.delete(apiRouteMap.crud.annihilate, (request, response) => {
-        dataBaseDelete(getDryRequest(databaseCmsConfig, request))
+    app.delete(data_base_const_1.apiRouteMap.crud.annihilate, (request, response) => {
+        data_base_api_module_1.dataBaseDelete(api_helper_1.getDryRequest(databaseCmsConfig, request))
             .then((result) => {
-            catchSuccess(result, response);
-            handleDataBaseChange(databaseCmsConfig);
+            api_helper_1.catchSuccess(result, response);
+            api_helper_1.handleDataBaseChange(databaseCmsConfig);
         })
             .catch((error) => {
-            catchError(error, response);
+            api_helper_1.catchError(error, response);
         });
     });
 }
+exports.addDataBaseApi = addDataBaseApi;
