@@ -8,7 +8,9 @@ import {ApiResultType} from '../../api-type';
 import {dataBaseCreate, dataBaseDelete, dataBaseRead, dataBaseReadList, dataBaseUpdate} from './data-base-api-module';
 
 export function addDataBaseApi(app: Application, databaseCmsConfig: DatabaseCmsConfigType): void {
-    app.post(apiRouteMap.crud.create, (request: Request, response: Response) => {
+    const apiPrefix = databaseCmsConfig.api.prefix;
+
+    app.post(apiPrefix + apiRouteMap.crud.create, (request: Request, response: Response) => {
         dataBaseCreate(getDryRequest(databaseCmsConfig, request))
             .then((result: ApiResultType<CrudResponseType>) => {
                 catchSuccess<CrudResponseType>(result, response);
@@ -19,7 +21,7 @@ export function addDataBaseApi(app: Application, databaseCmsConfig: DatabaseCmsC
             });
     });
 
-    app.get(apiRouteMap.crud.read, (request: Request, response: Response) => {
+    app.get(apiPrefix + apiRouteMap.crud.read, (request: Request, response: Response) => {
         dataBaseRead(getDryRequest(databaseCmsConfig, request))
             .then((result: ApiResultType<CrudResponseType>) => {
                 catchSuccess<CrudResponseType>(result, response);
@@ -29,7 +31,7 @@ export function addDataBaseApi(app: Application, databaseCmsConfig: DatabaseCmsC
             });
     });
 
-    app.get(apiRouteMap.crud.readList, (request: Request, response: Response) => {
+    app.get(apiPrefix + apiRouteMap.crud.readList, (request: Request, response: Response) => {
         dataBaseReadList(getDryRequest(databaseCmsConfig, request))
             .then((result: ApiResultType<CrudResponseType>) => {
                 catchSuccess<CrudResponseType>(result, response);
@@ -39,7 +41,7 @@ export function addDataBaseApi(app: Application, databaseCmsConfig: DatabaseCmsC
             });
     });
 
-    app.post(apiRouteMap.crud.update, (request: Request, response: Response) => {
+    app.post(apiPrefix + apiRouteMap.crud.update, (request: Request, response: Response) => {
         dataBaseUpdate(getDryRequest(databaseCmsConfig, request))
             .then((result: ApiResultType<CrudResponseType>) => {
                 catchSuccess<CrudResponseType>(result, response);
@@ -50,7 +52,7 @@ export function addDataBaseApi(app: Application, databaseCmsConfig: DatabaseCmsC
             });
     });
 
-    app.delete(apiRouteMap.crud.annihilate, (request: Request, response: Response) => {
+    app.delete(apiPrefix + apiRouteMap.crud.annihilate, (request: Request, response: Response) => {
         dataBaseDelete(getDryRequest(databaseCmsConfig, request))
             .then((result: ApiResultType<CrudResponseType>) => {
                 catchSuccess<CrudResponseType>(result, response);

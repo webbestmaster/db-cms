@@ -8,7 +8,7 @@ export const serverConst = {
         sessionKey: 'session-id',
     },
     api: {
-        apiHeaderKey: 'x-api-header-key',
+        apiHeaderKey: 'x-db-cms-api-key',
     },
 };
 

@@ -1,6 +1,6 @@
 {
   "name": "db-cms",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "db cms",
   "main": "dist/data-base-cms.js",
   "types": "dist/data-base-cms.d.ts",
@@ -32,7 +32,7 @@
   "dependencies": {
     "@types/express": "^4.17.11",
     "@types/express-fileupload": "^1.1.6",
-    "@types/mongodb": "^3.6.10",
+    "@types/mongodb": "^3.6.11",
     "@types/node": "^14.14.37",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",

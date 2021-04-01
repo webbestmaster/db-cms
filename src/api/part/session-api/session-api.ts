@@ -8,7 +8,9 @@ import {ApiResultType} from '../../api-type';
 import {authLogin, authLogout, authLogoutAll} from './session-api-module';
 
 export function addSessionApi(app: Application, databaseCmsConfig: DatabaseCmsConfigType): void {
-    app.post(apiRouteMap.auth.login, (request: Request, response: Response) => {
+    const apiPrefix = databaseCmsConfig.api.prefix;
+
+    app.post(apiPrefix + apiRouteMap.auth.login, (request: Request, response: Response) => {
         authLogin(getDryRequest(databaseCmsConfig, request), response)
             .then((result: ApiResultType<AuthResponseType>) => {
                 catchSuccess<AuthResponseType>(result, response);
@@ -18,7 +20,7 @@ export function addSessionApi(app: Application, databaseCmsConfig: DatabaseCmsCo
             });
     });
 
-    app.get(apiRouteMap.auth.logout, (request: Request, response: Response) => {
+    app.get(apiPrefix + apiRouteMap.auth.logout, (request: Request, response: Response) => {
         authLogout(response)
             .then((result: ApiResultType<AuthResponseType>) => {
                 catchSuccess<AuthResponseType>(result, response);
@@ -28,7 +30,7 @@ export function addSessionApi(app: Application, databaseCmsConfig: DatabaseCmsCo
             });
     });
 
-    app.get(apiRouteMap.auth.logoutAll, (request: Request, response: Response) => {
+    app.get(apiPrefix + apiRouteMap.auth.logoutAll, (request: Request, response: Response) => {
         authLogoutAll(getDryRequest(databaseCmsConfig, request), response)
             .then((result: ApiResultType<AuthResponseType>) => {
                 catchSuccess<AuthResponseType>(result, response);

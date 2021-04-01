@@ -23,6 +23,9 @@ export type DatabaseCmsConfigType = {
     file: {
         folder: string;
     };
+    api: {
+        prefix: string; // /db-cms/
+    };
     port: number; // 3000
     modelList: Array<ModelConfigType>;
     adminList: Array<AdminType>;

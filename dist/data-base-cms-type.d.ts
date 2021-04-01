@@ -19,6 +19,9 @@ export declare type DatabaseCmsConfigType = {
     file: {
         folder: string;
     };
+    api: {
+        prefix: string;
+    };
     port: number;
     modelList: Array<ModelConfigType>;
     adminList: Array<AdminType>;
