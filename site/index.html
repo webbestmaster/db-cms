@@ -25,7 +25,8 @@
 <button id="delete">delete</button>
 <br>
 <br>
-<button id="get-config">get config</button>
+<!--<button id="get-config">get config</button>-->
+<button id="get-user">get user</button>
 <br>
 <br>
 <input type="file" id="upload-file"/>
@@ -150,6 +151,7 @@
 
 </script>
 
+<!--
 <script>
 
     document
@@ -162,6 +164,23 @@
             })
                 .then(data => data.json())
                 .then(result => console.log('get config result:', result));
+        }, false);
+
+</script>
+-->
+
+<script>
+
+    document
+        .querySelector('#get-user')
+        .addEventListener('click', () => {
+            fetch('/api/auth/user', {
+                method: 'get',
+                credentials: 'include',
+                headers: {'Content-Type': 'application/json'},
+            })
+                .then(data => data.json())
+                .then(result => console.log('get user result:', result));
         }, false);
 
 </script>

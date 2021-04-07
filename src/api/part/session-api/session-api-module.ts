@@ -64,3 +64,21 @@ export async function authLogoutAll(
         data: {user: null},
     };
 }
+
+export async function authGetUser(dryRequest: DryRequestType): Promise<ApiResultType<AuthResponseType>> {
+    const {admin} = dryRequest;
+
+    if (!admin) {
+        return {
+            statusCode: 401,
+            data: {user: null},
+        };
+    }
+
+    const {login} = admin;
+
+    return {
+        statusCode: 200,
+        data: {user: {login}},
+    };
+}

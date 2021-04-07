@@ -25,7 +25,8 @@ exports.apiRouteMap = {
     auth: {
         login: '/api/auth/login',
         logout: '/api/auth/logout',
-        logoutAll: '/api/auth/logout-all', // done - get
+        logoutAll: '/api/auth/logout-all',
+        getUser: '/api/auth/user', // done - get
     },
     crud: {
         create: '/api/crud/create/:modelId',

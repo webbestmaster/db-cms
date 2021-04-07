@@ -23,6 +23,7 @@ export const apiRouteMap = {
         login: '/api/auth/login', // done - post
         logout: '/api/auth/logout', // done - get
         logoutAll: '/api/auth/logout-all', // done - get
+        getUser: '/api/auth/user', // done - get
     },
     crud: {
         create: '/api/crud/create/:modelId', // done - post

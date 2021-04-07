@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.authLogoutAll = exports.authLogout = exports.authLogin = void 0;
+exports.authGetUser = exports.authLogoutAll = exports.authLogout = exports.authLogin = void 0;
 const array_1 = require("../../../util/array");
 const string_1 = require("../../../util/string");
 const session_api_helper_1 = require("./session-api-helper");
@@ -62,3 +62,20 @@ function authLogoutAll(dryRequest, response) {
     });
 }
 exports.authLogoutAll = authLogoutAll;
+function authGetUser(dryRequest) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { admin } = dryRequest;
+        if (!admin) {
+            return {
+                statusCode: 401,
+                data: { user: null },
+            };
+        }
+        const { login } = admin;
+        return {
+            statusCode: 200,
+            data: { user: { login } },
+        };
+    });
+}
+exports.authGetUser = authGetUser;

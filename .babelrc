@@ -4,7 +4,6 @@
         "@babel/preset-typescript"
     ],
     "plugins": [
-        "@babel/plugin-transform-strict-mode",
-        "@babel/plugin-transform-runtime"
+        "@babel/plugin-transform-strict-mode"
     ]
 }

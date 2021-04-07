@@ -33,5 +33,14 @@ function addSessionApi(app, databaseCmsConfig) {
             api_helper_1.catchError(error, response);
         });
     });
+    app.get(apiPrefix + data_base_const_1.apiRouteMap.auth.getUser, (request, response) => {
+        session_api_module_1.authGetUser(api_helper_1.getDryRequest(databaseCmsConfig, request))
+            .then((result) => {
+            api_helper_1.catchSuccess(result, response);
+        })
+            .catch((error) => {
+            api_helper_1.catchError(error, response);
+        });
+    });
 }
 exports.addSessionApi = addSessionApi;

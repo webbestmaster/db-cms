@@ -40,6 +40,9 @@ const databaseCmsServerConfig: DatabaseCmsConfigType = {
     file: {
         folder: 'folder-for-files',
     },
+    api: {
+        prefix: '',
+    },
     port: 3000,
     modelList: [userModel, documentModel],
     adminList: [

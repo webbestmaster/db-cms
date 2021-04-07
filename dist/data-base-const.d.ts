@@ -15,6 +15,7 @@ export declare const apiRouteMap: {
         login: string;
         logout: string;
         logoutAll: string;
+        getUser: string;
     };
     crud: {
         create: string;
