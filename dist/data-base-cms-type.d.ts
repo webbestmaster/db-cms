@@ -1,4 +1,3 @@
-import { ObjectId } from 'mongodb';
 import { Schema } from 'jsonschema';
 export declare type ModelConfigType = {
     name: string;
@@ -37,8 +36,10 @@ export declare type DatabaseCmsConfigType = {
 export declare type AuthResponseType = {
     user: LoginDataType | null;
 };
-export declare type DocumentValueType = string | number | boolean | Array<string> | Array<number> | Array<boolean> | ObjectId;
-export declare type DocumentType = Record<string, DocumentValueType>;
+export declare type DocumentElementaryType = string | number | boolean | null;
+export declare type DocumentElementaryListType = Array<DocumentElementaryType>;
+export declare type DocumentValueType = DocumentElementaryType | DocumentElementaryListType;
+export declare type DocumentType = Record<string, unknown>;
 export declare type CrudResponseType = {
     data: DocumentType | Array<DocumentType> | null;
     size: number;

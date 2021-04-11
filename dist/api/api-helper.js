@@ -34,10 +34,11 @@ function getUrlQueryParameters(request) {
     return { sort, find };
 }
 function getDryRequest(databaseCmsConfig, request) {
-    const body = request.body || {};
+    const { body: requestBody, params: requestParameters } = request;
+    const body = requestBody || {};
     const sessionData = session_api_helper_1.getSessionData(request);
     const admin = session_api_helper_1.getAdminBySession(databaseCmsConfig, sessionData) || session_api_helper_1.getAdminByApiKey(databaseCmsConfig, request);
-    const urlParameters = object_1.getMapFromObject(request.params || {}, api_const_1.defaultUrlParameters);
+    const urlParameters = object_1.getMapFromObject(requestParameters || {}, api_const_1.defaultUrlParameters);
     const modelConfig = array_1.findInArray(databaseCmsConfig.modelList, {
         id: urlParameters.modelId,
     });

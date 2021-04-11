@@ -55,12 +55,13 @@ function getUrlQueryParameters(request: Request): UrlQueryParametersType {
 }
 
 export function getDryRequest(databaseCmsConfig: DatabaseCmsConfigType, request: Request): DryRequestType {
-    const body: DocumentType = request.body || {};
+    const {body: requestBody, params: requestParameters} = request;
+    const body: Record<string, unknown> = requestBody || {};
     const sessionData: SessionDataType | null = getSessionData(request);
     const admin: AdminType | null
         = getAdminBySession(databaseCmsConfig, sessionData) || getAdminByApiKey(databaseCmsConfig, request);
     const urlParameters: UrlParametersType = getMapFromObject<UrlParametersType>(
-        request.params || {},
+        requestParameters || {},
         defaultUrlParameters
     );
     const modelConfig: ModelConfigType | null = findInArray<ModelConfigType>(databaseCmsConfig.modelList, {

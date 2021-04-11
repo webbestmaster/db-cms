@@ -1,4 +1,4 @@
-import {ObjectId} from 'mongodb';
+// import {ObjectId} from 'mongodb';
 import {Schema} from 'jsonschema';
 
 export type ModelConfigType = {
@@ -43,9 +43,12 @@ export type AuthResponseType = {
     user: LoginDataType | null;
 };
 
-export type DocumentValueType = string | number | boolean | Array<string> | Array<number> | Array<boolean> | ObjectId;
+export type DocumentElementaryType = string | number | boolean | null;
+export type DocumentElementaryListType = Array<DocumentElementaryType>;
 
-export type DocumentType = Record<string, DocumentValueType>;
+export type DocumentValueType = DocumentElementaryType | DocumentElementaryListType;
+
+export type DocumentType = Record<string, unknown>;
 
 export type CrudResponseType = {
     data: DocumentType | Array<DocumentType> | null;

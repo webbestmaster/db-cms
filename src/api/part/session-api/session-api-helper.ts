@@ -32,7 +32,7 @@ export function getSessionData(request: Request): SessionDataType | null {
     const sessionCookie = parsedCookie[serverConst.session.sessionKey] || '';
 
     try {
-        const sessionData = JSON.parse(decrypt(sessionCookie)) || {};
+        const sessionData: Record<string, unknown> = JSON.parse(decrypt(sessionCookie)) || {};
 
         const {date, id, login, hash} = sessionData;
 
