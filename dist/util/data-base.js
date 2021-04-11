@@ -1,26 +1,27 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDataBase = exports.getCollection = void 0;
+exports.dataBaseMaster = void 0;
 const mongodb_1 = require("mongodb");
-const log_1 = require("./log");
-const getDataBaseCache = {};
-function getCollection(databaseCmsConfig, collectionName) {
-    return getDataBase(databaseCmsConfig).then((dataBase) => dataBase.collection(collectionName));
-}
-exports.getCollection = getCollection;
-function getDataBase(databaseCmsConfig) {
-    const { database } = databaseCmsConfig;
-    const { name, connectUrl } = database;
-    const cachedDatabase = getDataBaseCache[name];
-    if (cachedDatabase) {
-        log_1.log('getDataBase: MongoDataBase get from cache, name:', name);
-        return cachedDatabase;
-    }
-    const newMongoClientPromise = mongodb_1.MongoClient.connect(connectUrl, {
-        useUnifiedTopology: true,
-        useNewUrlParser: true,
-    }).then((client) => client.db(name));
-    getDataBaseCache[name] = newMongoClientPromise;
-    return newMongoClientPromise;
-}
-exports.getDataBase = getDataBase;
+exports.dataBaseMaster = {
+    getCollection: function getCollection(databaseCmsConfig, collectionName) {
+        return exports.dataBaseMaster.getDataBase().collection(collectionName);
+    },
+    getDataBase: function getDataBase() {
+        throw new Error('No data base. Initialize method dataBaseMaster.getDataBase');
+    },
+    initialDataBase: function initialDataBase(databaseCmsConfig) {
+        const { database } = databaseCmsConfig;
+        const { name, connectUrl } = database;
+        const options = {
+            useUnifiedTopology: true,
+            useNewUrlParser: true,
+        };
+        return mongodb_1.MongoClient.connect(connectUrl, options).then((client) => {
+            const dataBase = client.db(name);
+            exports.dataBaseMaster.getDataBase = function getDataBase() {
+                return dataBase;
+            };
+            return dataBase;
+        });
+    },
+};

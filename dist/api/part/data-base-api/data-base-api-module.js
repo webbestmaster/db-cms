@@ -13,6 +13,7 @@ exports.dataBaseDelete = exports.dataBaseUpdate = exports.dataBaseReadList = exp
 const mongodb_1 = require("mongodb");
 const schema_1 = require("../../../util/schema");
 const data_base_1 = require("../../../util/data-base");
+const { getCollection } = data_base_1.dataBaseMaster;
 const data_base_api_const_1 = require("./data-base-api-const");
 function dataBaseCreate(dryRequest) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -37,7 +38,7 @@ function dataBaseCreate(dryRequest) {
                 data: data_base_api_const_1.dataBaseErrorResult,
             };
         }
-        const collection = yield data_base_1.getCollection(databaseCmsConfig, modelId);
+        const collection = getCollection(databaseCmsConfig, modelId);
         // check for model already exists
         const instance = yield collection.findOne({ [keyId]: body[keyId] });
         if (instance) {
@@ -71,7 +72,7 @@ function dataBaseRead(dryRequest) {
         }
         const { keyId } = modelConfig;
         const { instanceId, modelId } = urlParameters;
-        const collection = yield data_base_1.getCollection(databaseCmsConfig, modelId);
+        const collection = getCollection(databaseCmsConfig, modelId);
         const instance = yield collection.findOne({ [keyId]: instanceId });
         if (!instance) {
             return {
@@ -105,7 +106,7 @@ function dataBaseReadList(dryRequest) {
         const { modelId, pageIndex, pageSize } = urlParameters;
         const pageIndexInt = Number.parseInt(pageIndex, 10);
         const pageSizeInt = Number.parseInt(pageSize, 10);
-        const collection = yield data_base_1.getCollection(databaseCmsConfig, modelId);
+        const collection = getCollection(databaseCmsConfig, modelId);
         const cursor = collection
             .find(find)
             .sort(sort)
@@ -140,7 +141,7 @@ function dataBaseUpdate(dryRequest) {
         const { keyId } = modelConfig;
         const { modelId } = urlParameters;
         const searchQuery = { [keyId]: body[keyId] };
-        const collection = yield data_base_1.getCollection(databaseCmsConfig, modelId);
+        const collection = getCollection(databaseCmsConfig, modelId);
         // check for model already exists
         const instance = yield collection.findOne(searchQuery);
         if (!instance) {
@@ -175,7 +176,7 @@ function dataBaseDelete(dryRequest) {
         const { keyId } = modelConfig;
         const { modelId, instanceId } = urlParameters;
         const searchQuery = { [keyId]: instanceId };
-        const collection = yield data_base_1.getCollection(databaseCmsConfig, modelId);
+        const collection = getCollection(databaseCmsConfig, modelId);
         // check for model already exists
         const instance = yield collection.findOne(searchQuery);
         if (!instance) {

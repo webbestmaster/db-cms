@@ -2,35 +2,37 @@ import {Collection, Db, MongoClient} from 'mongodb';
 
 import {DatabaseCmsConfigType} from '../data-base-cms-type';
 
-import {log} from './log';
+export const dataBaseMaster = {
+    getCollection: function getCollection<ItemType>(
+        databaseCmsConfig: DatabaseCmsConfigType,
+        collectionName: string
+    ): Collection<ItemType> {
+        return dataBaseMaster.getDataBase().collection<ItemType>(collectionName);
+    },
 
-const getDataBaseCache: {[key: string]: Promise<Db> | void} = {};
+    getDataBase: function getDataBase(): Db {
+        throw new Error('No data base. Initialize method dataBaseMaster.getDataBase');
+    },
 
-export function getCollection<ItemType>(
-    databaseCmsConfig: DatabaseCmsConfigType,
-    collectionName: string
-): Promise<Collection<ItemType>> {
-    return getDataBase(databaseCmsConfig).then(
-        (dataBase: Db): Collection<ItemType> => dataBase.collection<ItemType>(collectionName)
-    );
-}
+    initialDataBase: function initialDataBase(databaseCmsConfig: DatabaseCmsConfigType): Promise<Db> {
+        const {database} = databaseCmsConfig;
+        const {name, connectUrl} = database;
 
-export function getDataBase(databaseCmsConfig: DatabaseCmsConfigType): Promise<Db> {
-    const {database} = databaseCmsConfig;
-    const {name, connectUrl} = database;
-    const cachedDatabase: Promise<Db> | void = getDataBaseCache[name];
+        const options = {
+            useUnifiedTopology: true,
+            useNewUrlParser: true,
+        };
 
-    if (cachedDatabase) {
-        log('getDataBase: MongoDataBase get from cache, name:', name);
-        return cachedDatabase;
-    }
+        return MongoClient.connect(connectUrl, options).then(
+            (client: MongoClient): Db => {
+                const dataBase: Db = client.db(name);
 
-    const newMongoClientPromise = MongoClient.connect(connectUrl, {
-        useUnifiedTopology: true,
-        useNewUrlParser: true,
-    }).then((client: MongoClient): Db => client.db(name));
+                dataBaseMaster.getDataBase = function getDataBase(): Db {
+                    return dataBase;
+                };
 
-    getDataBaseCache[name] = newMongoClientPromise;
-
-    return newMongoClientPromise;
-}
+                return dataBase;
+            }
+        );
+    },
+};
