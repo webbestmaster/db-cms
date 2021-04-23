@@ -109,6 +109,14 @@ db.<collection name>.find( { $text: { $search: "Some text" } } ) // will found i
 }
 ```
 
+### DB update models
+```bash
+db.collection.updateMany(
+   <query>,
+   { $set: { status: "D" }, $inc: { quantity: 2 } },
+)
+```
+
 Monitoring
 
 To enable free monitoring, run the following command:
