@@ -2,7 +2,7 @@
 // Rule 'space-return-throw-case' was removed and replaced by: keyword-spacing  space-return-throw-case
 
 {
-    "parser":  "@typescript-eslint/parser",
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": 2020,
         "sourceType": "module",
@@ -51,13 +51,36 @@
         }
     },
     "rules": {
+        "@typescript-eslint/array-type": [
+            "error",
+            {
+                "default": "generic"
+            }
+        ],
+        "@typescript-eslint/naming-convention": [
+            "error",
+            {
+                "selector": "typeAlias",
+                "format": [
+                    "StrictPascalCase"
+                ],
+                "suffix": ["Type"]
+            }
+        ],
+        "@typescript-eslint/no-shadow": [
+            1,
+            {
+                "builtinGlobals": true,
+                "hoist": "all"
+            }
+        ],
         "@typescript-eslint/ban-ts-comment": 0,
         "@typescript-eslint/no-unused-vars": 0,
         "promise/always-return": 0,
         "unicorn/prefer-node-protocol": 0,
         "unicorn/no-array-callback-reference": 0,
         "unicorn/no-array-for-each": 0,
-        "unicorn/filename-case":  0,
+        "unicorn/filename-case": 0,
         "unicorn/no-reduce": 0,
         "unicorn/no-array-reduce": 0,
         "unicorn/no-null": 0,
@@ -291,6 +314,7 @@
         "no-delete-var": 1,
         "no-label-var": 1,
         "no-shadow-restricted-names": 1,
+/*
         "no-shadow": [
             1,
             {
@@ -298,6 +322,8 @@
                 "hoist": "all"
             }
         ],
+*/
+        "no-shadow": 0,
         "no-undef-init": 1,
         "no-undef": 1,
         "no-undefined": 1,
@@ -331,12 +357,12 @@
             {}
         ],
         // TODO: try to fix it
-//        "camelcase": [
-//            1,
-//            {
-//                "properties": "always"
-//            }
-//        ],
+        //        "camelcase": [
+        //            1,
+        //            {
+        //                "properties": "always"
+        //            }
+        //        ],
         "camelcase": [
             0,
             {
@@ -529,14 +555,14 @@
                 "properties": true
             }
         ],
-//        "id-match": [
-//            1,
-//            "^\\$?[a-zA-Z0-9\\$]+$",
-//            {
-//                "onlyDeclarations": false,
-//                "properties": true
-//            }
-//        ],
+        //        "id-match": [
+        //            1,
+        //            "^\\$?[a-zA-Z0-9\\$]+$",
+        //            {
+        //                "onlyDeclarations": false,
+        //                "properties": true
+        //            }
+        //        ],
         "semi-spacing": [
             1,
             {
