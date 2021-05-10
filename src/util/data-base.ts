@@ -23,16 +23,14 @@ export const dataBaseMaster = {
             useNewUrlParser: true,
         };
 
-        return MongoClient.connect(connectUrl, options).then(
-            (client: MongoClient): Db => {
-                const dataBase: Db = client.db(name);
+        return MongoClient.connect(connectUrl, options).then((client: MongoClient): Db => {
+            const dataBase: Db = client.db(name);
 
-                dataBaseMaster.getDataBase = function getDataBase(): Db {
-                    return dataBase;
-                };
-
+            dataBaseMaster.getDataBase = function getDataBase(): Db {
                 return dataBase;
-            }
-        );
+            };
+
+            return dataBase;
+        });
     },
 };
